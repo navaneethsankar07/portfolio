@@ -26,14 +26,13 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: SnapFolio
-  * Template URL: https://bootstrapmade.com/snapfolio-bootstrap-portfolio-template/
-  * Updated: Jun 13 2025 with Bootstrap v5.3.6
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("kTDCQBOHYyt3gyoC-"); 
+   })();
+</script>
+ 
 </head>
 
 <body class="index-page">
@@ -990,7 +989,7 @@ Offering tailored freelance services to meet project goals efficiently and deliv
               <h3>Get In Touch</h3>
               <p>I'm just a message away — let's connect!</p>
 
-              <form action="forms/contact.php" method="post" class="php-email-form">
+              <form id="contact-form" method="post" class="php-email-form">
                 <div class="row gy-4">
 
                   <div class="col-md-6">
@@ -1068,6 +1067,19 @@ Offering tailored freelance services to meet project goals efficiently and deliv
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  emailjs.sendForm('service_ec3inwc', 'template_y43dgs7', this)
+    .then(() => {
+      alert('Message sent successfully!');
+    }, (error) => {
+      alert('Failed to send message. Please try again.');
+      console.log('FAILED...', error);
+    });
+});
+</script>
 
 </body>
 
