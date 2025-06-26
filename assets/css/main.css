@@ -827,7 +827,11 @@ section,
     height: 350px;
   }
 }
-
+@media (max-width: 600px) {
+  .hero .hero-text h1 {
+    font-size: 37px;
+  }
+}
 @media (max-width: 768px) {
   .hero .hero-text h1 {
     font-size: 37px;
