@@ -989,35 +989,41 @@ Offering tailored freelance services to meet project goals efficiently and deliv
               <h3>Get In Touch</h3>
               <p>I'm just a message away — let's connect!</p>
 
-              <form id="contact-form"  class="php-email-form">
-                <div class="row gy-4">
+             <form id="contact-form" class="php-email-form">
+  <div class="row gy-4">
 
-                  <div class="col-md-6">
-                    <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                  </div>
+    <!-- Name: Only letters and spaces, 2-40 characters -->
+    <div class="col-md-6">
+      <input type="text" name="name" class="form-control" placeholder="Your Name"
+        pattern="[A-Za-z\s]{2,40}" title="Name should contain only letters and spaces (2-40 characters)" required>
+    </div>
 
-                  <div class="col-md-6 ">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email" required>
-                  </div>
+    <!-- Email: Simple email pattern -->
+    <div class="col-md-6">
+      <input type="email" class="form-control" name="email" placeholder="Your Email"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address" required>
+    </div>
 
-                  <div class="col-12">
-                    <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                  </div>
+    <!-- Subject: Letters, numbers, spaces, and punctuation (3-100 characters) -->
+    <div class="col-12">
+      <input type="text" class="form-control" name="subject" placeholder="Subject"
+        pattern=".{3,100}" title="Subject must be between 3 and 100 characters" required>
+    </div>
 
-                  <div class="col-12">
-                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                  </div>
+    <!-- Message: Minimum 10 characters -->
+    <div class="col-12">
+      <textarea class="form-control" name="message" rows="6" placeholder="Message"
+        pattern=".{10,}" title="Message must be at least 10 characters long" required></textarea>
+    </div>
 
-                  <div class="col-12 text-center">
-                    <!-- <div class="loading">Loading</div> -->
-                    <!-- <div class="error-message"></div> -->
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
+    <div class="col-12 text-center">
+      <div class="sent-message">Your message has been sent. Thank you!</div>
+      <button type="submit" class="btn">Send Message</button>
+    </div>
 
-                    <button type="submit" class="btn">Send Message</button>
-                  </div>
+  </div>
+</form>
 
-                </div>
-              </form>
 
             </div>
           </div>
