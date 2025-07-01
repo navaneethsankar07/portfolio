@@ -989,13 +989,13 @@ Offering tailored freelance services to meet project goals efficiently and deliv
               <h3>Get In Touch</h3>
               <p>I'm just a message away — let's connect!</p>
 
-             <form id="contact-form" class="php-email-form">
+             <form id="contact-form" class="" action="https://formspree.io/f/mdkzbjak" method="POST">
   <div class="row gy-4">
 
     <!-- Name: Only letters and spaces, 2-40 characters -->
     <div class="col-md-6">
       <input type="text" name="name" class="form-control" placeholder="Your Name"
-        pattern="[A-Za-z\s]{2,40}" title="Name should contain only letters and spaces (2-40 characters)" required>
+        pattern="^(?!\s*$)[A-Za-z\s]{2,40}$" title="Name should contain only letters and spaces (2-40 characters)" required>
     </div>
 
     <!-- Email: Simple email pattern -->
@@ -1007,17 +1007,17 @@ Offering tailored freelance services to meet project goals efficiently and deliv
     <!-- Subject: Letters, numbers, spaces, and punctuation (3-100 characters) -->
     <div class="col-12">
       <input type="text" class="form-control" name="subject" placeholder="Subject"
-        pattern=".{3,100}" title="Subject must be between 3 and 100 characters" required>
+        pattern="^(?!\s*$).{3,100}$" title="Subject must be between 3 and 100 characters" required>
     </div>
 
     <!-- Message: Minimum 10 characters -->
     <div class="col-12">
       <textarea class="form-control" name="message" rows="6" placeholder="Message"
-        pattern=".{10,}" title="Message must be at least 10 characters long" required></textarea>
+        pattern="^(?!\s*$).{10,}$"
+ title="Message must be at least 10 characters long" required></textarea>
     </div>
 
     <div class="col-12 text-center">
-      <div class="sent-message">Your message has been sent. Thank you!</div>
       <button type="submit" class="btn">Send Message</button>
     </div>
 
@@ -1073,19 +1073,23 @@ Offering tailored freelance services to meet project goals efficiently and deliv
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script>
+ <script>
 document.getElementById('contact-form').addEventListener('submit', function(e) {
-  e.preventDefault();
+  e.preventDefault(); // prevent default form submission
 
-  emailjs.sendForm('service_ec3inwc', 'template_y43dgs7', this)
-    .then(() => {
-      alert('Message sent successfully!');
-    }, (error) => {
-      alert('Failed to send message. Please try again.');
-      console.log('FAILED...', error);
-    });
-});
+  // Trim and validate fields
+  const name = document.querySelector('[name="name"]').value.trim();
+  const subject = document.querySelector('[name="subject"]').value.trim();
+  const message = document.querySelector('[name="message"]').value.trim();
+
+  if (name.length < 2 || subject.length < 3 || message.length < 10) {
+    alert('Please fill out all fields properly. Avoid only spaces and input atleast 10 letters.');
+    return; // Stop here, don’t send the email
+  }
+
+  
 </script>
+
 
 </body>
 
