@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ParticleBackground } from './components/ParticleBackground';
+import { CustomCursor } from './components/CustomCursor';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { About } from './components/About';
-import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
-import { Experience } from './components/Experience';
-import { Blog } from './components/Blog';
+import { About } from './components/About';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
-import { InteractiveTerminal } from './components/InteractiveTerminal';
+import { ProjectModal } from './components/ProjectModal';
 import { CommandPalette } from './components/CommandPalette';
 import { AdminPortal } from './admin/AdminPortal';
 import { api } from './services/api';
@@ -25,7 +22,7 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   // Modals & Panels
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isAdminPortalOpen, setIsAdminPortalOpen] = useState(false);
 
@@ -55,7 +52,6 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     fetchAllData();
-    // Record page visit
     api.recordVisit(window.location.pathname).catch(() => {});
   }, []);
 
@@ -71,78 +67,67 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  const flagshipProject = projects.length > 0 ? projects[0] : null;
+
   return (
-    <div className="relative min-h-screen bg-cyber-dark text-cyber-text font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="relative min-h-screen bg-[#08080A] text-[#EDEDED] font-sans selection:bg-white selection:text-black">
       
-      {/* Dynamic Animated Particle & Ambient Grid Canvas */}
-      <ParticleBackground />
+      {/* Luxury Film Grain Texture Overlay */}
+      <div className="grain-overlay" />
 
-      {/* Cyber Grid background subtle overlay */}
-      <div className="fixed inset-0 cyber-grid pointer-events-none opacity-40 -z-10" />
+      {/* Bespoke Interactive Custom Cursor */}
+      <CustomCursor />
 
-      {/* Navbar */}
+      {/* High-End Editorial Navbar */}
       <Navbar
-        onOpenTerminal={() => setIsTerminalOpen(true)}
-        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
         onOpenAdmin={() => setIsAdminPortalOpen(true)}
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
       />
 
-      <main className="relative z-10">
-        {/* Hero */}
+      <main>
+        {/* Editorial Hero with Peak Work Above The Fold */}
         <Hero
           profile={profile}
-          onOpenTerminal={() => setIsTerminalOpen(true)}
+          flagshipProject={flagshipProject}
+          onOpenProject={(proj) => setSelectedProject(proj)}
         />
 
-        {/* About & Core Pillars */}
+        {/* Selected Works (Curated Case Studies) */}
+        <Projects projects={projects} />
+
+        {/* About, Philosophy & Verified Teammate Reviews */}
         <About
           profile={profile}
           stats={stats}
         />
 
-        {/* Categorized Skills Matrix */}
-        <Skills skills={skills} />
-
-        {/* Featured Projects with Architecture Modal */}
-        <Projects projects={projects} />
-
-        {/* Career & Training Timeline */}
-        <Experience experiences={experiences} />
-
-        {/* Engineering Blog */}
-        <Blog articles={articles} />
-
-        {/* Contact & Inquiries Form */}
+        {/* High-Fidelity Contact Section */}
         <Contact profile={profile} />
       </main>
 
-      {/* Footer */}
+      {/* Editorial Footer */}
       <Footer
         profile={profile}
-        stats={stats}
         onOpenAdmin={() => setIsAdminPortalOpen(true)}
       />
 
-      {/* Interactive Terminal CLI */}
-      <InteractiveTerminal
-        isOpen={isTerminalOpen}
-        onClose={() => setIsTerminalOpen(false)}
-        profile={profile}
-        skills={skills}
-        projects={projects}
+      {/* Project Case Study Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
       />
 
-      {/* Cmd+K Command Palette */}
+      {/* Command Palette (Cmd+K) */}
       <CommandPalette
         isOpen={isCommandPaletteOpen}
         onClose={() => setIsCommandPaletteOpen(false)}
-        onOpenTerminal={() => setIsTerminalOpen(true)}
+        onOpenTerminal={() => {}}
         onOpenAdmin={() => setIsAdminPortalOpen(true)}
         profile={profile}
         projects={projects}
       />
 
-      {/* Admin Management Portal */}
+      {/* Custom React Admin Management Portal */}
       <AdminPortal
         isOpen={isAdminPortalOpen}
         onClose={() => setIsAdminPortalOpen(false)}
@@ -158,4 +143,3 @@ export const App: React.FC = () => {
 };
 
 export default App;
-

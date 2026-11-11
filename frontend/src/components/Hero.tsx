@@ -1,287 +1,202 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  ArrowRight, Download, Terminal as TerminalIcon, Github, Linkedin, 
-  Mail, Sparkles, CheckCircle2, Copy, Check 
-} from 'lucide-react';
-import { Profile } from '../types';
+import { ArrowUpRight, ArrowDown, Database, Cpu, Sparkles, Layers } from 'lucide-react';
+import { Profile, Project } from '../types';
 
 interface HeroProps {
   profile: Profile | null;
-  onOpenTerminal: () => void;
+  flagshipProject: Project | null;
+  onOpenProject: (project: Project) => void;
 }
 
-const titles = [
-  "Python Full Stack Developer",
-  "Django & DRF Backend Specialist",
-  "React.js & TypeScript UI Engineer",
-  "Celery, Redis & WebSockets Architect"
-];
-
-export const Hero: React.FC<HeroProps> = ({ profile, onOpenTerminal }) => {
-  const [titleIndex, setTitleIndex] = useState(0);
-  const [copiedSnippet, setCopiedSnippet] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTitleIndex((prev) => (prev + 1) % titles.length);
-    }, 3200);
-    return () => clearInterval(interval);
-  }, []);
-
-  const codeSnippet = `# Navaneeth Sankar - Core Stack
-from rest_framework import viewsets, permissions
-from celery import shared_task
-import redis
-
-class ScalableBackend(viewsets.ModelViewSet):
-    """
-    Production-grade Django REST APIs with Celery
-    asynchronous workers & in-memory Redis cache.
-    """
-    queryset = Project.objects.select_related('category')
-    permission_classes = [permissions.IsAuthenticated]
-
-    @shared_task
-    def process_async_pipeline(payload_id):
-        # Offload high-latency tasks
-        return celery_worker.execute(payload_id)`;
-
-  const handleCopyCode = () => {
-    navigator.clipboard.writeText(codeSnippet);
-    setCopiedSnippet(true);
-    setTimeout(() => setCopiedSnippet(false), 2000);
-  };
-
+export const Hero: React.FC<HeroProps> = ({ profile, flagshipProject, onOpenProject }) => {
   return (
-    <section className="relative pt-32 pb-20 md:pt-44 md:pb-28 overflow-hidden">
-      {/* Background radial ambient lights */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[450px] bg-cyan-500/15 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute top-1/3 left-1/3 w-[450px] h-[350px] bg-purple-600/15 rounded-full blur-[130px] pointer-events-none -z-10" />
+    <section className="relative pt-32 sm:pt-40 pb-16 sm:pb-24 overflow-hidden border-b border-white/[0.08]">
+      
+      {/* Subtle Ambient Radial Highlight */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-white/[0.02] rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        
+        {/* Top Editorial Index Meta */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-white/[0.08] text-[11px] font-mono-tag text-neutral-400 uppercase tracking-widest">
+          <div className="flex items-center gap-2">
+            <span>[INDEX]</span>
+            <span className="text-white">FULL-STACK SOFTWARE DEVELOPER</span>
+          </div>
+          <div className="hidden sm:block">
+            <span>CORE SPEC: DJANGO REST FRAMEWORK + REACT</span>
+          </div>
+          <div>
+            <span>EDITION [2026]</span>
+          </div>
+        </div>
+
+        {/* Hero Grid: Left Typography Manifesto, Right Peak Work Above The Fold */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
-          {/* Left Column: Heading, Roles, CTA */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
+          {/* Left Column (Spans 7 cols): Strong Editorial Headline & Manifesto */}
+          <div className="lg:col-span-7 flex flex-col justify-center">
             
-            {/* Status Pill */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel border-cyan-500/30 text-cyan-300 text-xs font-mono mb-6 shadow-sm shadow-cyan-900/40"
+              transition={{ duration: 0.6 }}
+              className="mb-4 inline-flex items-center gap-2 text-xs font-mono-tag tracking-widest text-neutral-400 uppercase"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span>{profile?.status_text || "Available for Full Stack & Backend Roles"}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-white" />
+              <span>NAVANEETH SANKAR — PORTFOLIO</span>
             </motion.div>
 
-            {/* Main Greeting & Name */}
+            {/* Massive Display Title */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-4 leading-[1.15]"
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold uppercase leading-[0.92] tracking-tighter text-white mb-8 font-display"
             >
-              Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400">Navaneeth Sankar</span>
+              Engineered <br />
+              <span className="text-neutral-400 font-light italic">for Extreme</span> <br />
+              Performance.
             </motion.h1>
 
-            {/* Dynamic Animated Subtitle */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="h-10 sm:h-12 flex items-center mb-6 overflow-hidden"
-            >
-              <span className="text-xl sm:text-2xl font-mono text-slate-300 flex items-center">
-                <span className="text-cyan-400 mr-2">&gt;</span>
-                <motion.span
-                  key={titleIndex}
-                  initial={{ y: 25, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -25, opacity: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="font-semibold text-slate-100"
-                >
-                  {titles[titleIndex]}
-                </motion.span>
-                <span className="inline-block w-2 h-5 bg-cyan-400 ml-1.5 animate-pulse" />
-              </span>
-            </motion.div>
-
-            {/* Short Bio Pitch */}
+            {/* Editorial Paragraph */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-base sm:text-lg text-slate-300/90 leading-relaxed mb-8 max-w-2xl font-normal"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-base sm:text-lg text-neutral-300 font-normal leading-relaxed max-w-xl mb-10"
             >
-              Specializing in architecting scalable full-stack web applications with <span className="text-cyan-400 font-semibold">Python</span>, <span className="text-cyan-400 font-semibold">Django REST Framework</span>, and <span className="text-indigo-400 font-semibold">React</span>. Experienced in designing resilient database architectures with <span className="text-slate-100 font-medium">PostgreSQL</span>, asynchronous background processing with <span className="text-slate-100 font-medium">Redis & Celery</span>, and low-latency real-time WebSockets with <span className="text-slate-100 font-medium">Django Channels</span>.
+              Specializing in scalable distributed web systems with <strong className="text-white font-semibold">Python</strong>, <strong className="text-white font-semibold">Django REST Framework</strong>, and reactive <strong className="text-white font-semibold">React interfaces</strong>. Designing resilient database layers with <span className="text-neutral-200">PostgreSQL</span>, async pipelines with <span className="text-neutral-200">Celery & Redis</span>, and sub-millisecond <span className="text-neutral-200">WebSockets</span>.
             </motion.p>
 
-            {/* Action Buttons */}
+            {/* Action Bar */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-10"
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4 sm:gap-6"
             >
               <a
-                href="#projects"
-                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-medium text-sm text-black bg-gradient-to-r from-cyan-400 to-teal-300 hover:from-cyan-300 hover:to-teal-200 transition-all shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5 active:translate-y-0"
+                href="#work"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-white text-black font-semibold text-xs font-mono-tag tracking-wider uppercase hover:bg-neutral-200 transition-all group"
+                data-cursor="DISCOVER"
               >
-                <span>Explore Projects</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>EXPLORE WORK</span>
+                <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
               </a>
 
               <a
                 href="#contact"
-                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-medium text-sm text-slate-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center gap-2 text-xs font-mono-tag text-neutral-400 hover:text-white transition-colors tracking-widest uppercase border-b border-neutral-700 hover:border-white pb-1"
               >
-                <Mail className="w-4 h-4 text-cyan-400" />
-                <span>Get In Touch</span>
+                <span>INITIATE CONTACT</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
-
-              <a
-                href={profile?.resume_url || "#contact"}
-                target="_blank"
-                rel="noreferrer"
-                download="Navaneeth_Sankar_CV.pdf"
-                className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-medium text-sm text-slate-300 bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:text-white"
-              >
-                <Download className="w-4 h-4 text-emerald-400" />
-                <span>Download CV</span>
-              </a>
-
-              <button
-                onClick={onOpenTerminal}
-                className="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-mono text-xs text-slate-400 hover:text-cyan-300 bg-black/40 border border-slate-800 hover:border-cyan-500/50 transition-all"
-                title="Launch interactive hacker CLI"
-              >
-                <TerminalIcon className="w-4 h-4 text-cyan-400" />
-                <span>CLI Mode</span>
-              </button>
-            </motion.div>
-
-            {/* Quick Social & Contact Badges */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="flex items-center gap-4 text-slate-400"
-            >
-              <a
-                href={profile?.github_url || "https://github.com/navaneethsankar"}
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white hover:scale-110 transition-all"
-                aria-label="GitHub Profile"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-              <a
-                href={profile?.linkedin_url || "https://www.linkedin.com/in/navaneethsankar/"}
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-cyan-400 hover:scale-110 transition-all"
-                aria-label="LinkedIn Profile"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <div className="h-4 w-px bg-slate-800 mx-1" />
-              <div className="text-xs font-mono text-slate-400">
-                <span>📍 {profile?.location || "Kerala, India"}</span>
-              </div>
             </motion.div>
 
           </div>
 
-          {/* Right Column: High-Tech Code Terminal Preview */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-5 relative"
-          >
-            {/* Glowing Backdrop Border */}
-            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-cyan-500/30 via-indigo-500/30 to-purple-500/30 blur-xl opacity-70 group-hover:opacity-100 transition duration-1000" />
-            
-            <div className="relative rounded-2xl bg-[#0B0F19] border border-cyan-500/20 shadow-2xl overflow-hidden">
-              
-              {/* Window Header */}
-              <div className="flex items-center justify-between px-4 py-3 bg-[#070A11] border-b border-slate-800">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                  <span className="text-xs font-mono text-slate-400 ml-2">views.py — Django & Celery</span>
-                </div>
+          {/* Right Column (Spans 5 cols): PEAK WORK ABOVE THE FOLD */}
+          <div className="lg:col-span-5">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.2 }}
+              className="relative group cursor-pointer"
+              onClick={() => flagshipProject && onOpenProject(flagshipProject)}
+              data-cursor="CASE STUDY"
+            >
+              {/* Outer Card with High-End Minimal Border */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-[#0D0E12] border border-white/10 group-hover:border-white/30 transition-all duration-500 shadow-2xl">
                 
-                <button
-                  onClick={handleCopyCode}
-                  className="p-1.5 text-slate-400 hover:text-cyan-300 transition-colors rounded-md hover:bg-white/5"
-                  title="Copy snippet"
-                >
-                  {copiedSnippet ? (
-                    <Check className="w-4 h-4 text-emerald-400" />
-                  ) : (
-                    <Copy className="w-4 h-4" />
-                  )}
-                </button>
-              </div>
-
-              {/* Code Content */}
-              <div className="p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed text-slate-300 overflow-x-auto">
-                <pre>
-                  <code>
-                    <span className="text-purple-400"># Core Architecture</span>{'\n'}
-                    <span className="text-cyan-400">from</span> rest_framework <span className="text-cyan-400">import</span> viewsets, permissions{'\n'}
-                    <span className="text-cyan-400">from</span> celery <span className="text-cyan-400">import</span> shared_task{'\n'}
-                    <span className="text-cyan-400">import</span> redis{'\n\n'}
-                    <span className="text-yellow-400">class</span> <span className="text-emerald-400">ScalableFullStack</span>(viewsets.ModelViewSet):{'\n'}
-                    {'    '}<span className="text-slate-400">""" High-throughput Django REST Backend """</span>{'\n'}
-                    {'    '}queryset = Project.objects.select_related(<span className="text-amber-300">'category'</span>){'\n'}
-                    {'    '}permission_classes = [permissions.IsAuthenticated]{'\n\n'}
-                    {'    '}<span className="text-purple-400">@shared_task</span>{'\n'}
-                    {'    '}<span className="text-cyan-400">def</span> <span className="text-blue-400">async_worker_pipeline</span>(payload):{'\n'}
-                    {'        '}<span className="text-slate-500"># Offloads heavy tasks to Redis + Celery</span>{'\n'}
-                    {'        '}<span className="text-cyan-400">return</span> celery_queue.dispatch(payload){'\n\n'}
-                    <span className="text-emerald-400">✓ 0ms Blocking Latency</span> | <span className="text-cyan-400">✓ Redis Cache Hit</span>
-                  </code>
-                </pre>
-              </div>
-
-              {/* Bottom System Stats Bar */}
-              <div className="px-4 py-2.5 bg-black/40 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-                <div className="flex items-center gap-3">
-                  <span className="flex items-center gap-1 text-emerald-400">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>REST API: Online</span>
+                {/* Header bar above preview */}
+                <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/[0.08] text-[11px] font-mono-tag text-neutral-400 uppercase tracking-widest">
+                  <span className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-white" />
+                    <span>PEAK WORK // 01</span>
                   </span>
-                  <span>PostgreSQL: Connected</span>
+                  <span className="text-white font-bold group-hover:text-neutral-300 transition-colors flex items-center gap-1">
+                    <span>EXPLORE</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </span>
                 </div>
-                <div className="text-cyan-400">Python 3.12</div>
+
+                {/* Visual Imagery */}
+                <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden bg-neutral-900 mb-5">
+                  <img
+                    src={
+                      flagshipProject?.image_url ||
+                      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80'
+                    }
+                    alt={flagshipProject?.title || 'GROLANCE'}
+                    className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 opacity-80 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                  
+                  {/* Floating Badges */}
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded bg-black/80 backdrop-blur-md text-[10px] font-mono-tag text-white uppercase border border-white/10">
+                      CELERY + REDIS + POSTGRESQL
+                    </span>
+                    <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-mono-tag border border-emerald-500/30">
+                      LIVE
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card Title & Meta */}
+                <h3 className="text-2xl font-bold font-display uppercase tracking-tight text-white mb-2 group-hover:text-neutral-200 transition-colors">
+                  {flagshipProject?.title || 'GROLANCE'}
+                </h3>
+                <p className="text-xs text-neutral-400 leading-relaxed font-sans mb-4 line-clamp-2">
+                  {flagshipProject?.subtitle ||
+                    'Full-stack freelancing platform engineered with role-based JWT auth, PayPal escrow milestones, and distributed async Celery workers.'}
+                </p>
+
+                {/* Quick Architecture Indicators */}
+                <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono-tag text-neutral-400">
+                  <span className="flex items-center gap-1.5">
+                    <Cpu className="w-3.5 h-3.5 text-white" />
+                    <span>0ms Blocking Latency</span>
+                  </span>
+                  <span className="text-white uppercase tracking-wider">
+                    VIEW CASE STUDY &rarr;
+                  </span>
+                </div>
+
               </div>
-
-            </div>
-
-            {/* Floating Tech Badges */}
-            <div className="absolute -bottom-5 -left-4 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl glass-panel border-cyan-500/30 text-xs font-mono text-cyan-300 shadow-xl">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Django Channels + WebSockets</span>
-            </div>
-            <div className="absolute -top-4 -right-2 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl glass-panel border-purple-500/30 text-xs font-mono text-purple-300 shadow-xl">
-              <span>React 18 + Redux Toolkit</span>
-            </div>
-
-          </motion.div>
+            </motion.div>
+          </div>
 
         </div>
+
       </div>
+
+      {/* Kinetic Infinite Marquee Banner (Subtle, Monochrome, Classy) */}
+      <div className="mt-16 pt-6 border-t border-white/[0.08] overflow-hidden whitespace-nowrap bg-[#0A0B0E]">
+        <div className="inline-flex animate-marquee text-xs font-mono-tag text-neutral-400 uppercase tracking-[0.25em] py-3">
+          {[1, 2, 3].map((idx) => (
+            <span key={idx} className="flex items-center gap-8 mr-8">
+              <span>DJANGO REST FRAMEWORK</span>
+              <span className="text-white">•</span>
+              <span>REACT 18 & TYPESCRIPT</span>
+              <span className="text-white">•</span>
+              <span>POSTGRESQL RELATIONAL ARCHITECTURE</span>
+              <span className="text-white">•</span>
+              <span>CELERY DISTRIBUTED WORKERS</span>
+              <span className="text-white">•</span>
+              <span>REDIS CHANNEL LAYERS</span>
+              <span className="text-white">•</span>
+              <span>WEBSOCKET REAL-TIME STREAMING</span>
+              <span className="text-white">•</span>
+              <span>DOCKER & CI/CD PIPELINES</span>
+              <span className="text-white">•</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
     </section>
   );
 };
-
