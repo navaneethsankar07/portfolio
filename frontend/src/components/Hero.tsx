@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, ArrowDown, Database, Cpu, Check, Layers, ExternalLink, Copy, Terminal } from 'lucide-react';
+import { ArrowUpRight, ArrowDown, Database, Cpu, Check, Layers, Copy, Terminal, ExternalLink, ShieldCheck, Zap, Radio } from 'lucide-react';
 import { Profile, Project } from '../types';
-import { GrolanceMockup, ChitChatMockup, ReStoreMockup } from './ProjectMockups';
 
 interface HeroProps {
   profile: Profile | null;
@@ -12,25 +11,6 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ profile, projects, onOpenProject }) => {
   const [activePeakIdx, setActivePeakIdx] = useState(0);
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [istTime, setIstTime] = useState('');
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      setIstTime(
-        now.toLocaleTimeString('en-US', {
-          timeZone: 'Asia/Kolkata',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: true,
-        })
-      );
-    };
-    updateTime();
-    const timer = setInterval(updateTime, 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   const copyEmail = () => {
     navigator.clipboard.writeText('navaneethsankar07@gmail.com');
@@ -43,10 +23,10 @@ export const Hero: React.FC<HeroProps> = ({ profile, projects, onOpenProject }) 
       id: 1,
       title: "GROLANCE",
       slug: "grolance-freelancing-platform",
-      subtitle: "Full-Stack Freelancing Platform with Role-Based Workflows",
+      subtitle: "Full-Stack Freelancing Ecosystem with Role-Based Workflows",
       category: "fullstack",
       category_display: "Full-Stack Platform",
-      description: "A comprehensive freelancing ecosystem engineered with dual role-based workflows for clients and freelancers, milestone-driven escrow protection, and asynchronous Celery workers.",
+      description: "An end-to-end freelancing platform featuring dual role-based workflows for clients and freelancers, milestone escrow financial protections, and asynchronous Celery worker pipelines.",
       architecture_notes: "Engineered with Django REST Framework and React 18. Implemented stateless JWT auth with RBAC. PostgreSQL serves as the relational source of truth with strict ACID transaction guarantees. Offloaded invoice generation and email notifications to background Celery workers with a Redis broker.",
       tech_stack: ["Django", "DRF", "React.js", "PostgreSQL", "Redis", "Celery", "JWT", "TailwindCSS"],
       key_features: [
@@ -66,7 +46,7 @@ export const Hero: React.FC<HeroProps> = ({ profile, projects, onOpenProject }) 
       id: 2,
       title: "ChitChat",
       slug: "chitchat-realtime-messaging",
-      subtitle: "Real-Time WebSocket Messaging Platform",
+      subtitle: "Real-Time WebSocket Messaging Infrastructure",
       category: "realtime",
       category_display: "Real-Time & WebSockets",
       description: "A low-latency, bidirectional communication platform powered by Django Channels ASGI server architecture, Redis channel layers, and full-duplex WebSocket connections.",
@@ -111,127 +91,111 @@ export const Hero: React.FC<HeroProps> = ({ profile, projects, onOpenProject }) 
 
   const currentProject = peakProjects[activePeakIdx] || peakProjects[0];
 
-  const renderMockup = (title: string) => {
-    if (title.toLowerCase().includes('grolance')) return <GrolanceMockup />;
-    if (title.toLowerCase().includes('chitchat')) return <ChitChatMockup />;
-    return <ReStoreMockup />;
-  };
-
   return (
-    <section className="relative pt-32 sm:pt-40 pb-20 border-b border-white/[0.08] overflow-hidden bg-architectural-grid">
+    <section className="relative pt-36 sm:pt-44 pb-20 border-b border-white/[0.08] bg-studio-grid overflow-hidden">
       
-      {/* Ambient Lighting Orbs */}
-      <div className="absolute top-20 left-1/4 w-[600px] h-[300px] bg-emerald-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-40 right-1/4 w-[500px] h-[300px] bg-cyan-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
+      {/* Subtle Luminous Ambient Glows */}
+      <div className="absolute top-1/4 left-1/3 -translate-x-1/2 w-[600px] h-[320px] bg-electric-cyan/[0.035] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-[500px] h-[300px] bg-electric-blue/[0.025] rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10">
         
-        {/* System Telemetry & Status Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-12 border-b border-white/[0.08] text-xs font-mono-tag text-neutral-400">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-white font-bold tracking-wider">NAVANEETH SANKAR</span>
-            <span className="text-neutral-600">—</span>
-            <span className="text-neutral-300">PYTHON FULL-STACK &amp; BACKEND ARCHITECT</span>
-          </div>
-
-          <div className="hidden lg:flex items-center gap-4 text-neutral-400">
-            <span>KERALA, INDIA</span>
-            <span className="text-neutral-700">•</span>
-            <span className="text-white font-mono">{istTime || '11:45:00 AM'} IST</span>
-            <span className="text-neutral-700">•</span>
-            <span className="text-emerald-400 font-bold">STATUS: AVAILABLE</span>
-          </div>
+        {/* Eyebrow Index Tag */}
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-1.5 h-1.5 rounded-full bg-electric-cyan animate-pulse" />
+          <span className="text-xs font-mono-tag text-neutral-400 uppercase tracking-widest">
+            PYTHON FULL-STACK ARCHITECT // SYSTEMS &amp; INTERFACES
+          </span>
         </div>
 
-        {/* Editorial Headline & Value Proposition */}
-        <div className="max-w-4xl mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono-tag text-neutral-300 mb-6">
-            <Terminal className="w-3.5 h-3.5 text-emerald-400" />
-            <span>FULL-STACK ARCHITECTURE // SCALABLE WEB PLATFORMS</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl lg:text-[76px] font-bold tracking-tight text-white leading-[1.04] mb-8 font-display">
-            Architecting Resilient Backends &amp; High-Fidelity Products.
+        {/* Monumental Editorial Headline */}
+        <div className="max-w-5xl mb-12">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-tight text-white leading-[1.04] mb-8 font-display">
+            Architecting high-concurrency backends &amp;{' '}
+            <span className="text-[#00F0FF]">
+              precision digital products.
+            </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-neutral-300 font-sans leading-relaxed max-w-2xl mb-10">
-            Specializing in distributed Python / Django REST services, asynchronous Celery queues, PostgreSQL relational architectures, and reactive React 18 + TypeScript frontends.
+          <p className="text-base sm:text-xl text-neutral-300 font-sans leading-relaxed max-w-3xl mb-10">
+            Hi, I’m <strong className="text-white font-semibold">Navaneeth Sankar</strong>. I engineer distributed Django REST APIs, asynchronous Celery task pipelines, PostgreSQL relational architectures, and reactive React 18 interfaces.
           </p>
 
           {/* Action Row */}
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-8">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-12">
             <a
               href="#work"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black font-semibold text-xs font-mono-tag tracking-wider uppercase hover:bg-neutral-200 transition-all shadow-lg group"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black font-bold text-xs font-mono-tag tracking-wider uppercase hover:bg-electric-cyan transition-all shadow-xl group"
             >
               <span>Explore Selected Works</span>
               <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
             </a>
 
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 text-xs font-mono-tag text-neutral-300 hover:text-white transition-colors tracking-widest uppercase border-b border-neutral-700 hover:border-white pb-1"
-            >
-              <span>Direct Transmission</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
-
             <button
               onClick={copyEmail}
-              className="inline-flex items-center gap-2 text-xs font-mono-tag text-neutral-400 hover:text-white transition-colors tracking-widest uppercase"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/30 text-white font-mono-tag text-xs tracking-wider uppercase transition-all"
             >
-              <span>{copiedEmail ? 'Email Copied ✓' : 'Copy Email'}</span>
-              <Copy className="w-3.5 h-3.5" />
+              <span>{copiedEmail ? 'Email Copied ✓' : 'navaneethsankar07@gmail.com'}</span>
+              <Copy className="w-3.5 h-3.5 text-neutral-400" />
             </button>
+
+            <a
+              href="/Navaneeth_Sankar_CV.pdf"
+              target="_blank"
+              download
+              className="inline-flex items-center gap-1.5 text-xs font-mono-tag text-neutral-400 hover:text-white transition-colors tracking-widest uppercase ml-auto"
+            >
+              <span>Download CV [PDF]</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
           </div>
 
-          {/* Engineering Standards Checklist */}
-          <div className="pt-6 border-t border-white/[0.08] flex flex-wrap items-center gap-6 text-xs font-mono-tag text-neutral-300">
-            <span className="flex items-center gap-1.5 text-white">
-              <Check className="w-3.5 h-3.5 text-emerald-400" />
+          {/* Core Technical Highlights Bar */}
+          <div className="pt-6 border-t border-white/[0.08] flex flex-wrap items-center gap-6 text-xs font-mono-tag text-neutral-400">
+            <span className="flex items-center gap-2 text-white">
+              <Check className="w-3.5 h-3.5 text-electric-cyan" />
               <span>PostgreSQL ACID Relational Schemas</span>
             </span>
             <span className="text-neutral-700">•</span>
-            <span className="flex items-center gap-1.5 text-white">
-              <Check className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="flex items-center gap-2 text-white">
+              <Check className="w-3.5 h-3.5 text-electric-cyan" />
               <span>Celery Distributed Queues &amp; Redis</span>
             </span>
             <span className="text-neutral-700">•</span>
-            <span className="flex items-center gap-1.5 text-white">
-              <Check className="w-3.5 h-3.5 text-indigo-400" />
+            <span className="flex items-center gap-2 text-white">
+              <Check className="w-3.5 h-3.5 text-electric-cyan" />
               <span>Sub-10ms WebSockets via Channels</span>
             </span>
           </div>
         </div>
 
         {/* ================================================================
-            PEAK WORK ABOVE THE FOLD: Interactive Systems Cockpit Frame
+            PEAK WORK ABOVE THE FOLD: Flagship Case Study Exhibit Frame
            ================================================================ */}
-        <div className="rounded-3xl bg-[#0B0D13]/90 border border-white/15 p-5 sm:p-8 shadow-2xl backdrop-blur-xl">
+        <div className="mt-12 rounded-3xl bg-[#07080C] border border-white/15 p-6 sm:p-10 shadow-2xl backdrop-blur-2xl">
           
-          {/* Cockpit Header with Project Switcher Tabs */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-6 mb-6 border-b border-white/10 gap-4">
+          {/* Header Bar with Switchers */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-6 mb-8 border-b border-white/10 gap-4">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
               </div>
-              <span className="text-xs font-mono-tag text-neutral-400">
-                PEAK WORK INTERACTIVE COCKPIT // 0{activePeakIdx + 1} OF 03
+              <span className="text-xs font-mono-tag text-neutral-400 tracking-wider">
+                FLAGSHIP EXHIBIT // 0{activePeakIdx + 1} OF 03
               </span>
             </div>
 
-            {/* Interactive Switcher Tabs */}
+            {/* Switcher Tabs */}
             <div className="flex flex-wrap items-center gap-2">
               {peakProjects.map((p, idx) => (
                 <button
                   key={p.id}
                   onClick={() => setActivePeakIdx(idx)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-mono-tag transition-all flex items-center gap-1.5 ${
+                  className={`px-4 py-1.5 rounded-full text-xs font-mono-tag transition-all flex items-center gap-2 ${
                     activePeakIdx === idx
-                      ? 'bg-white text-black font-bold shadow-md'
+                      ? 'bg-white text-black font-bold shadow-lg'
                       : 'bg-white/5 border border-white/10 text-neutral-400 hover:text-white hover:border-white/20'
                   }`}
                 >
@@ -242,42 +206,135 @@ export const Hero: React.FC<HeroProps> = ({ profile, projects, onOpenProject }) 
             </div>
           </div>
 
-          {/* Cockpit Body: Split View */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Exhibition Content: 2-Column Split */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            {/* Visual Live Interface Simulation (Spans 7 cols) */}
-            <div className="lg:col-span-7 rounded-2xl overflow-hidden bg-[#07080C] border border-white/10 shadow-xl">
-              <div className="relative min-h-[300px] w-full">
-                {renderMockup(currentProject.title)}
+            {/* Visual Interface Showcase (7 cols) */}
+            <div className="lg:col-span-7 rounded-2xl bg-[#030305] border border-white/10 p-6 sm:p-8 flex flex-col justify-between font-mono text-xs shadow-inner">
+              
+              {/* Window Header */}
+              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-electric-cyan animate-pulse" />
+                  <span className="text-white font-bold tracking-wider uppercase text-[11px] sm:text-xs">
+                    {currentProject.title} // ARCHITECTURE TELEMETRY
+                  </span>
+                </div>
+                <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-electric-cyan text-[10px] font-bold">
+                  PRODUCTION READY
+                </span>
+              </div>
+
+              {/* Dynamic Project Specific Preview */}
+              {activePeakIdx === 0 && (
+                <div className="my-6 space-y-4 font-mono">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
+                      <div className="text-[10px] text-neutral-500 uppercase">ESCROW DEPOSIT</div>
+                      <div className="text-2xl font-bold font-sans text-white my-1">$4,850.00</div>
+                      <div className="text-[10px] text-electric-cyan flex items-center gap-1">
+                        <ShieldCheck className="w-3 h-3" />
+                        <span>ACID Protected</span>
+                      </div>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
+                      <div className="text-[10px] text-neutral-500 uppercase">CELERY TASK QUEUE</div>
+                      <div className="text-xl font-bold font-sans text-electric-cyan my-1">0ms Idle</div>
+                      <div className="text-[10px] text-neutral-400">Async Invoice Gen</div>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
+                      <div className="text-[10px] text-neutral-500 uppercase">QUERY OPTIMIZATION</div>
+                      <div className="text-xl font-bold font-sans text-white my-1">18.4ms</div>
+                      <div className="text-[10px] text-electric-emerald text-emerald-400">Zero N+1 Queries</div>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-black/60 border border-white/10 text-[11px] text-neutral-300">
+                    <div className="text-neutral-500 text-[10px] mb-1 uppercase">// ACTIVE CELERY WORKER PIPELINE</div>
+                    <div>[Celery-Worker-1] Task contracts.tasks.release_milestone succeeded in 38ms</div>
+                    <div className="text-electric-cyan">[PostgreSQL] SELECT FOR UPDATE on contract_id=104 committed cleanly</div>
+                  </div>
+                </div>
+              )}
+
+              {activePeakIdx === 1 && (
+                <div className="my-6 space-y-4 font-mono">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
+                      <div className="text-[10px] text-neutral-500 uppercase">WEBSOCKET PING</div>
+                      <div className="text-2xl font-bold font-sans text-electric-cyan my-1">1.8ms</div>
+                      <div className="text-[10px] text-neutral-400">Django Channels ASGI</div>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
+                      <div className="text-[10px] text-neutral-500 uppercase">CHANNEL BROADCAST</div>
+                      <div className="text-xl font-bold font-sans text-white my-1">Redis In-Memory</div>
+                      <div className="text-[10px] text-emerald-400">Full-Duplex TCP Active</div>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-black/60 border border-white/10 text-[11px] text-neutral-300">
+                    <div className="text-neutral-500 text-[10px] mb-1 uppercase">// ASGI WEBSOCKET FRAME TRACE</div>
+                    <div>[Handshake] GET /ws/chat/room_849/?token=jwt.token.val HTTP/1.1 101 Switching Protocols</div>
+                    <div className="text-electric-cyan">[Broadcast] Message frame delivered across Redis group with 0 polling latency</div>
+                  </div>
+                </div>
+              )}
+
+              {activePeakIdx === 2 && (
+                <div className="my-6 space-y-4 font-mono">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
+                      <div className="text-[10px] text-neutral-500 uppercase">CLOUDINARY CDN</div>
+                      <div className="text-2xl font-bold font-sans text-emerald-400 my-1">-96.2%</div>
+                      <div className="text-[10px] text-neutral-400">4.8MB &rarr; 184KB WebP</div>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
+                      <div className="text-[10px] text-neutral-500 uppercase">STATE ENGINE</div>
+                      <div className="text-xl font-bold font-sans text-white my-1">Redux Toolkit</div>
+                      <div className="text-[10px] text-electric-cyan">Predictable Slices</div>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-black/60 border border-white/10 text-[11px] text-neutral-300">
+                    <div className="text-neutral-500 text-[10px] mb-1 uppercase">// CLIENT STATE &amp; ASSET PIPELINE</div>
+                    <div>[Redux] Cart &amp; faceted filter slice mutations dispatch deterministically</div>
+                    <div className="text-emerald-400">[Media CDN] Responsive AVIF/WebP assets delivered in sub-40ms from edge</div>
+                  </div>
+                </div>
+              )}
+
+              {/* Status Footer */}
+              <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-neutral-500">
+                <span>Architecture Verified</span>
+                <span className="text-neutral-400">PostgreSQL + Django + React 18</span>
               </div>
             </div>
 
-            {/* Project Summary & Technical Details (Spans 5 cols) */}
+            {/* Architectural Narrative (5 cols) */}
             <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
               <div>
-                <div className="text-xs font-mono-tag text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span>{currentProject.category_display || currentProject.category}</span>
+                <div className="text-xs font-mono-tag text-electric-cyan uppercase tracking-widest mb-2">
+                  {currentProject.category_display || currentProject.category}
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2 font-display">
+                <h3 className="text-3xl sm:text-4xl font-extrabold uppercase text-white font-display tracking-tight mb-3">
                   {currentProject.title}
                 </h3>
 
-                <p className="text-xs font-mono-tag text-neutral-400 mb-4 uppercase">
+                <p className="text-xs font-mono-tag text-neutral-400 mb-6 uppercase">
                   {currentProject.subtitle}
                 </p>
 
-                <p className="text-sm text-neutral-300 font-sans leading-relaxed mb-6">
+                <p className="text-sm sm:text-base text-neutral-300 font-sans leading-relaxed mb-6">
                   {currentProject.description}
                 </p>
 
                 {/* Tech Pills */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {currentProject.tech_stack?.slice(0, 6).map((tech) => (
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {currentProject.tech_stack?.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 text-xs font-mono-tag text-neutral-300"
+                      className="px-3 py-1 rounded-md bg-white/[0.04] border border-white/10 text-xs font-mono-tag text-neutral-200"
                     >
                       {tech}
                     </span>
@@ -285,11 +342,11 @@ export const Hero: React.FC<HeroProps> = ({ profile, projects, onOpenProject }) 
                 </div>
               </div>
 
-              {/* Action Buttons */}
+              {/* Actions */}
               <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-4">
                 <button
                   onClick={() => onOpenProject(currentProject)}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black font-bold text-xs font-mono-tag tracking-wider uppercase hover:bg-neutral-200 transition-all shadow-md"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black font-bold text-xs font-mono-tag tracking-wider uppercase hover:bg-electric-cyan transition-all shadow-md"
                 >
                   <span>Inspect Architecture</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -300,7 +357,7 @@ export const Hero: React.FC<HeroProps> = ({ profile, projects, onOpenProject }) 
                     href={currentProject.github_url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-mono-tag text-neutral-400 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono-tag text-neutral-400 hover:text-white transition-colors uppercase tracking-wider"
                   >
                     <span>GitHub Code</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -315,25 +372,25 @@ export const Hero: React.FC<HeroProps> = ({ profile, projects, onOpenProject }) 
 
       </div>
 
-      {/* Kinetic Infinite Marquee Ticker */}
-      <div className="mt-16 pt-5 border-t border-white/[0.08] overflow-hidden whitespace-nowrap bg-[#050609]">
+      {/* Kinetic Infinite Marquee Banner */}
+      <div className="mt-16 pt-5 border-t border-white/[0.08] overflow-hidden whitespace-nowrap bg-[#020204]">
         <div className="inline-flex animate-marquee text-xs font-mono-tag text-neutral-400 uppercase tracking-[0.25em] py-2">
           {[1, 2, 3].map((idx) => (
             <span key={idx} className="flex items-center gap-8 mr-8">
               <span>DJANGO REST FRAMEWORK</span>
-              <span className="text-emerald-400">•</span>
+              <span className="text-electric-cyan">•</span>
               <span>REACT 18 &amp; TYPESCRIPT</span>
-              <span className="text-cyan-400">•</span>
+              <span className="text-electric-blue">•</span>
               <span>POSTGRESQL RELATIONAL ARCHITECTURE</span>
               <span className="text-purple-400">•</span>
               <span>CELERY ASYNCHRONOUS WORKERS</span>
-              <span className="text-yellow-400">•</span>
-              <span>REDIS MESSAGE BROKER</span>
               <span className="text-emerald-400">•</span>
+              <span>REDIS MESSAGE BROKER</span>
+              <span className="text-electric-cyan">•</span>
               <span>DJANGO CHANNELS WEBSOCKETS</span>
-              <span className="text-cyan-400">•</span>
-              <span>DOCKER &amp; CI/CD AUTOMATION</span>
-              <span className="text-purple-400">•</span>
+              <span className="text-white">•</span>
+              <span>DOCKER CONTAINERIZATION</span>
+              <span className="text-neutral-500">•</span>
             </span>
           ))}
         </div>

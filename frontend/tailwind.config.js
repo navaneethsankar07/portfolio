@@ -8,29 +8,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        studio: {
-          bg: '#0A0B0E',
-          card: '#101217',
-          cardHover: '#161922',
-          border: 'rgba(255, 255, 255, 0.08)',
-          borderLight: 'rgba(255, 255, 255, 0.16)',
-          text: '#F4F4F6',
-          muted: '#A1A1AA',
-          subtle: '#71717A',
-        }
+        'electric-cyan': '#00F0FF',
+        'electric-blue': '#00AAFF',
+        'electric-emerald': '#10B981',
+        obsidian: {
+          950: '#030305',
+          900: '#07080B',
+          850: '#0C0D12',
+          800: '#12141B',
+        },
       },
       fontFamily: {
-        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
-        display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
-        mono: ['Space Mono', 'monospace'],
+        sans: ['Geist', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        display: ['Geist', 'Plus Jakarta Sans', 'sans-serif'],
+        mono: ['Geist Mono', 'Space Mono', 'monospace'],
       },
       letterSpacing: {
-        tighter: '-0.04em',
-        tight: '-0.02em',
-        widest: '0.2em',
+        tighter: '-0.05em',
+        tight: '-0.025em',
+        widest: '0.22em',
       },
       animation: {
-        'marquee': 'marquee 30s linear infinite',
+        'marquee': 'marquee 35s linear infinite',
       },
       keyframes: {
         marquee: {

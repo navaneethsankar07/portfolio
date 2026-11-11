@@ -66,7 +66,7 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#08080A] text-[#EDEDED] font-sans selection:bg-white selection:text-black">
+    <div className="relative min-h-screen bg-[#030305] text-[#EDEDED] font-sans selection:bg-electric-cyan selection:text-black">
       
       {/* Luxury Film Grain Texture Overlay */}
       <div className="grain-overlay" />

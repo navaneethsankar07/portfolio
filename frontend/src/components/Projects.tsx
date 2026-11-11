@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, Github, ExternalLink, Cpu, CheckCircle2, Database, Zap, Radio, Layers, Server } from 'lucide-react';
+import { ArrowUpRight, Github, ExternalLink, Cpu, CheckCircle2, Database, Zap, Layers, Server } from 'lucide-react';
 import { Project } from '../types';
 import { ProjectModal } from './ProjectModal';
-import { GrolanceMockup, ChitChatMockup, ReStoreMockup } from './ProjectMockups';
 
 interface ProjectsProps {
   projects: Project[];
@@ -10,10 +9,10 @@ interface ProjectsProps {
 
 export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [activeProjectTab, setActiveProjectTab] = useState<Record<number, 'console' | 'architecture' | 'metrics'>>({
-    1: 'console',
-    2: 'console',
-    3: 'console',
+  const [activeTab, setActiveTab] = useState<Record<number, 'telemetry' | 'diagram' | 'specs'>>({
+    1: 'telemetry',
+    2: 'telemetry',
+    3: 'telemetry',
   });
 
   const displayProjects: Project[] = projects && projects.length > 0 ? projects.slice(0, 3) : [
@@ -21,7 +20,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
       id: 1,
       title: "GROLANCE",
       slug: "grolance-freelancing-platform",
-      subtitle: "Full-Stack Freelancing Platform with Role-Based Workflows",
+      subtitle: "Full-Stack Freelancing Ecosystem with Role-Based Workflows",
       category: "fullstack",
       category_display: "Full-Stack Platform",
       description: "A comprehensive full-stack freelancing platform connecting clients and freelance professionals through role-based workflows, contract milestones, and escrow payments.",
@@ -44,7 +43,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
       id: 2,
       title: "ChitChat",
       slug: "chitchat-realtime-messaging",
-      subtitle: "Real-Time WebSocket Messaging Platform",
+      subtitle: "Real-Time WebSocket Messaging Infrastructure",
       category: "realtime",
       category_display: "Real-Time & WebSockets",
       description: "A low-latency real-time communication platform engineered with Django Channels and WebSockets for instant message delivery and presence tracking.",
@@ -87,195 +86,196 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
     }
   ];
 
-  const setTab = (projectId: number, tab: 'console' | 'architecture' | 'metrics') => {
-    setActiveProjectTab((prev) => ({ ...prev, [projectId]: tab }));
-  };
-
-  const renderProjectVisual = (project: Project) => {
-    const activeTab = activeProjectTab[project.id] || 'console';
-
-    if (activeTab === 'console') {
-      if (project.title.toLowerCase().includes('grolance')) return <GrolanceMockup />;
-      if (project.title.toLowerCase().includes('chitchat')) return <ChitChatMockup />;
-      return <ReStoreMockup />;
-    }
-
-    if (activeTab === 'architecture') {
-      return (
-        <div className="w-full h-full bg-[#0A0C10] p-6 rounded-xl border border-white/10 flex flex-col justify-between font-mono text-xs select-none">
-          <div className="text-xs text-neutral-400 pb-2 border-b border-white/10 flex items-center justify-between">
-            <span className="text-white font-bold">// ARCHITECTURAL FLOW DIAGRAM</span>
-            <span className="text-emerald-400">DATA INTEGRITY: 100% ACID</span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 my-4 text-center">
-            <div className="p-3 rounded-lg bg-white/[0.03] border border-white/10">
-              <div className="text-[10px] text-neutral-500 mb-1">CLIENT LAYER</div>
-              <div className="text-white font-bold">React 18 / TS</div>
-              <div className="text-[9px] text-cyan-400 mt-1">Vite + Redux</div>
-            </div>
-            <div className="p-3 rounded-lg bg-white/[0.03] border border-white/10">
-              <div className="text-[10px] text-neutral-500 mb-1">GATEWAY &amp; API</div>
-              <div className="text-white font-bold">Django REST</div>
-              <div className="text-[9px] text-emerald-400 mt-1">Stateless JWT</div>
-            </div>
-            <div className="p-3 rounded-lg bg-white/[0.03] border border-white/10">
-              <div className="text-[10px] text-neutral-500 mb-1">TASK QUEUE</div>
-              <div className="text-white font-bold">Celery + Redis</div>
-              <div className="text-[9px] text-purple-400 mt-1">Async Dispatches</div>
-            </div>
-            <div className="p-3 rounded-lg bg-white/[0.03] border border-white/10">
-              <div className="text-[10px] text-neutral-500 mb-1">PERSISTENCE</div>
-              <div className="text-white font-bold">PostgreSQL</div>
-              <div className="text-[9px] text-yellow-400 mt-1">ACID Relational</div>
-            </div>
-          </div>
-
-          <div className="pt-2 border-t border-white/10 text-[10px] text-neutral-400 flex items-center justify-between">
-            <span>Query Prefetching: active (select_related)</span>
-            <span className="text-emerald-400">Zero N+1 Bottlenecks</span>
-          </div>
-        </div>
-      );
-    }
-
-    // Metrics tab
-    return (
-      <div className="w-full h-full bg-[#0A0C10] p-6 rounded-xl border border-white/10 flex flex-col justify-between font-mono text-xs select-none">
-        <div className="text-xs text-neutral-400 pb-2 border-b border-white/10 flex items-center justify-between">
-          <span className="text-white font-bold">// PRODUCTION PERFORMANCE BENCHMARKS</span>
-          <span className="text-cyan-400">TELEMETRY VERIFIED</span>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-4">
-          <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10">
-            <div className="text-[10px] text-neutral-500 mb-1">API LATENCY (P95)</div>
-            <div className="text-xl font-bold font-sans text-white">34ms</div>
-            <div className="text-[9px] text-emerald-400 mt-1">Sub-second response</div>
-          </div>
-          <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10">
-            <div className="text-[10px] text-neutral-500 mb-1">ASYNC WORKER DURATION</div>
-            <div className="text-xl font-bold font-sans text-cyan-300">0.38s</div>
-            <div className="text-[9px] text-neutral-400 mt-1">Celery PDF generation</div>
-          </div>
-          <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10">
-            <div className="text-[10px] text-neutral-500 mb-1">MEDIA COMPRESSION</div>
-            <div className="text-xl font-bold font-sans text-emerald-400">-96.2%</div>
-            <div className="text-[9px] text-neutral-400 mt-1">Cloudinary WebP/AVIF</div>
-          </div>
-        </div>
-
-        <div className="pt-2 border-t border-white/10 text-[10px] text-neutral-400 flex items-center justify-between">
-          <span>Concurrency load tested to 500 req/sec</span>
-          <span className="text-white">Uptime: 99.98%</span>
-        </div>
-      </div>
-    );
+  const setProjectTab = (id: number, tab: 'telemetry' | 'diagram' | 'specs') => {
+    setActiveTab((prev) => ({ ...prev, [id]: tab }));
   };
 
   return (
-    <section id="work" className="py-24 sm:py-36 border-b border-white/[0.08] relative bg-architectural-grid">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+    <section id="work" className="py-28 sm:py-36 border-b border-white/[0.08] relative bg-studio-grid">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 mb-20 border-b border-white/[0.08]">
           <div>
-            <div className="text-xs font-mono-tag text-emerald-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
+            <div className="text-xs font-mono-tag text-electric-cyan uppercase tracking-widest mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-electric-cyan inline-block animate-pulse" />
               <span>(01) / SELECTED ARCHITECTURAL WORKS</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tight text-white font-display">
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-white font-display">
               Flagship Projects.
             </h2>
           </div>
 
-          <p className="text-sm font-sans text-neutral-300 max-w-md leading-relaxed">
-            Full-stack production platforms engineered with robust database schemas, distributed background task queues, and low-latency real-time synchronization.
+          <p className="text-sm sm:text-base font-sans text-neutral-400 max-w-md leading-relaxed">
+            Full-scale web applications engineered with robust database schemas, distributed background task queues, and low-latency real-time synchronization.
           </p>
         </div>
 
-        {/* Project Case Studies List */}
-        <div className="space-y-28 sm:space-y-40">
+        {/* Project Exhibits List */}
+        <div className="space-y-32 sm:space-y-44">
           {displayProjects.map((project, idx) => {
             const indexStr = String(idx + 1).padStart(2, '0');
             const isReversed = idx % 2 === 1;
-            const currentTab = activeProjectTab[project.id] || 'console';
+            const currentTab = activeTab[project.id] || 'telemetry';
 
             return (
-              <article
-                key={project.id || idx}
-                className="group opacity-100 transition-all duration-500"
-              >
-                {/* Meta Header Line */}
+              <article key={project.id || idx} className="group">
+                
+                {/* Meta Top Line */}
                 <div className="flex items-center justify-between pb-4 mb-8 border-b border-white/[0.08] text-xs font-mono-tag text-neutral-400 tracking-widest uppercase">
                   <div className="flex items-center gap-3">
-                    <span className="text-white font-bold">({indexStr})</span>
-                    <span>/</span>
+                    <span className="text-electric-cyan font-bold">({indexStr})</span>
+                    <span className="text-neutral-700">/</span>
                     <span className="text-white font-semibold">{project.title}</span>
                   </div>
-                  <div className="text-neutral-400">
+                  <div>
                     <span>{project.category_display || project.category}</span>
                   </div>
                 </div>
 
-                {/* Case Study Grid */}
-                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center`}>
+                {/* Grid Split */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
                   
-                  {/* Visual Interface Showcase (Spans 7 cols) */}
+                  {/* Visual Interface Showcase (7 cols) */}
                   <div className={`lg:col-span-7 flex flex-col ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
                     
-                    {/* View Mode Switcher Pills */}
+                    {/* View Switcher Pills */}
                     <div className="flex items-center gap-2 mb-3 self-start">
                       <button
-                        onClick={() => setTab(project.id, 'console')}
-                        className={`px-3 py-1 rounded-full text-[11px] font-mono-tag uppercase transition-all ${
-                          currentTab === 'console'
+                        onClick={() => setProjectTab(project.id, 'telemetry')}
+                        className={`px-3 py-1 rounded-full text-xs font-mono-tag uppercase transition-all ${
+                          currentTab === 'telemetry'
                             ? 'bg-white text-black font-bold shadow-md'
                             : 'bg-white/5 border border-white/10 text-neutral-400 hover:text-white'
                         }`}
                       >
-                        Live Console
+                        Telemetry &amp; State
                       </button>
                       <button
-                        onClick={() => setTab(project.id, 'architecture')}
-                        className={`px-3 py-1 rounded-full text-[11px] font-mono-tag uppercase transition-all ${
-                          currentTab === 'architecture'
+                        onClick={() => setProjectTab(project.id, 'diagram')}
+                        className={`px-3 py-1 rounded-full text-xs font-mono-tag uppercase transition-all ${
+                          currentTab === 'diagram'
                             ? 'bg-white text-black font-bold shadow-md'
                             : 'bg-white/5 border border-white/10 text-neutral-400 hover:text-white'
                         }`}
                       >
-                        Architecture Flow
+                        System Flow
                       </button>
                       <button
-                        onClick={() => setTab(project.id, 'metrics')}
-                        className={`px-3 py-1 rounded-full text-[11px] font-mono-tag uppercase transition-all ${
-                          currentTab === 'metrics'
+                        onClick={() => setProjectTab(project.id, 'specs')}
+                        className={`px-3 py-1 rounded-full text-xs font-mono-tag uppercase transition-all ${
+                          currentTab === 'specs'
                             ? 'bg-white text-black font-bold shadow-md'
                             : 'bg-white/5 border border-white/10 text-neutral-400 hover:text-white'
                         }`}
                       >
-                        Telemetry
+                        Architecture Specs
                       </button>
                     </div>
 
                     {/* Frame Container */}
                     <div
-                      className="cursor-pointer overflow-hidden rounded-2xl bg-[#090A0E] border border-white/10 group-hover:border-white/30 transition-all duration-500 shadow-2xl"
                       onClick={() => setSelectedProject(project)}
-                      data-cursor="INSPECT"
+                      className="cursor-pointer overflow-hidden rounded-2xl bg-[#07080C] border border-white/10 group-hover:border-electric-cyan/40 transition-all duration-500 shadow-2xl p-6 sm:p-8"
                     >
-                      <div className="relative min-h-[300px] w-full">
-                        {renderProjectVisual(project)}
-                      </div>
+                      {currentTab === 'telemetry' && (
+                        <div className="space-y-4 font-mono text-xs select-none">
+                          <div className="flex items-center justify-between pb-3 border-b border-white/10 text-[11px]">
+                            <span className="text-white font-bold">{project.title} // LIVE MONITOR</span>
+                            <span className="text-electric-cyan">HEALTH: 100% OPERATIONAL</span>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
+                              <div className="text-[10px] text-neutral-500 uppercase">DATABASE TRANSACTION</div>
+                              <div className="text-lg font-bold font-sans text-white mt-1">ACID Committed</div>
+                              <div className="text-[10px] text-electric-cyan">PostgreSQL Relational</div>
+                            </div>
+                            <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
+                              <div className="text-[10px] text-neutral-500 uppercase">ROUND-TRIP LATENCY</div>
+                              <div className="text-lg font-bold font-sans text-white mt-1">&lt;35ms Response</div>
+                              <div className="text-[10px] text-emerald-400">P95 Benchmark</div>
+                            </div>
+                          </div>
+
+                          <div className="p-3 rounded-lg bg-black/60 border border-white/10 text-[11px] text-neutral-300">
+                            <span className="text-neutral-500 uppercase text-[10px] block mb-1">// SYSTEM EXECUTION CONTEXT</span>
+                            {project.title === 'GROLANCE' && (
+                              <span>Stateless JWT with RBAC &bull; Celery worker pool active &bull; Escrow milestone contract verified</span>
+                            )}
+                            {project.title === 'ChitChat' && (
+                              <span>Django Channels ASGI &bull; Redis channel layers &bull; Full-duplex persistent WebSocket stream</span>
+                            )}
+                            {project.title === 'ReStore' && (
+                              <span>Redux Toolkit global state &bull; Cloudinary WebP automated media optimization &bull; Vite build</span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                      {currentTab === 'diagram' && (
+                        <div className="space-y-4 font-mono text-xs select-none">
+                          <div className="flex items-center justify-between pb-3 border-b border-white/10 text-[11px]">
+                            <span className="text-white font-bold">// ARCHITECTURAL PIPELINE</span>
+                            <span className="text-emerald-400">UNIDIRECTIONAL FLOW</span>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 text-center my-3">
+                            <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/10">
+                              <div className="text-[9px] text-neutral-500">CLIENT</div>
+                              <div className="text-white font-bold text-xs mt-0.5">React 18</div>
+                              <div className="text-[9px] text-cyan-400">TypeScript</div>
+                            </div>
+                            <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/10">
+                              <div className="text-[9px] text-neutral-500">API GATEWAY</div>
+                              <div className="text-white font-bold text-xs mt-0.5">Django DRF</div>
+                              <div className="text-[9px] text-emerald-400">Stateless JWT</div>
+                            </div>
+                            <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/10">
+                              <div className="text-[9px] text-neutral-500">ASYNC QUEUE</div>
+                              <div className="text-white font-bold text-xs mt-0.5">Celery + Redis</div>
+                              <div className="text-[9px] text-purple-400">Workers</div>
+                            </div>
+                            <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/10">
+                              <div className="text-[9px] text-neutral-500">DATABASE</div>
+                              <div className="text-white font-bold text-xs mt-0.5">PostgreSQL</div>
+                              <div className="text-[9px] text-yellow-400">ACID Schemas</div>
+                            </div>
+                          </div>
+
+                          <div className="text-[10px] text-neutral-400 flex items-center justify-between pt-2 border-t border-white/10">
+                            <span>Zero N+1 Queries via prefetch</span>
+                            <span className="text-electric-cyan">Click to inspect deep-dive &rarr;</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {currentTab === 'specs' && (
+                        <div className="space-y-4 font-mono text-xs select-none">
+                          <div className="flex items-center justify-between pb-3 border-b border-white/10 text-[11px]">
+                            <span className="text-white font-bold">// KEY ENGINEERING SPECS</span>
+                            <span className="text-electric-cyan">STANDARDS ENFORCED</span>
+                          </div>
+
+                          <div className="space-y-2">
+                            {project.key_features?.slice(0, 3).map((feat, i) => (
+                              <div key={i} className="flex items-start gap-2 text-neutral-300 font-sans text-xs">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-electric-cyan shrink-0 mt-0.5" />
+                                <span>{feat}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  {/* Narrative & Architectural Breakdown (Spans 5 cols) */}
+                  {/* Narrative Breakdown (5 cols) */}
                   <div className={`lg:col-span-5 flex flex-col justify-between ${
                     isReversed ? 'lg:order-1' : 'lg:order-2'
                   }`}>
                     <div>
-                      <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold uppercase font-display text-white mb-3 tracking-tight group-hover:text-neutral-200 transition-colors">
+                      <h3 className="text-3xl sm:text-5xl font-extrabold uppercase font-display text-white mb-3 tracking-tight group-hover:text-electric-cyan transition-colors">
                         {project.title}
                       </h3>
 
@@ -290,7 +290,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                       {/* Architecture Callout */}
                       {project.architecture_notes && (
                         <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10 mb-6">
-                          <div className="flex items-center gap-2 text-xs font-mono-tag text-emerald-400 uppercase tracking-widest mb-1.5">
+                          <div className="flex items-center gap-2 text-xs font-mono-tag text-electric-cyan uppercase tracking-widest mb-1.5">
                             <Cpu className="w-3.5 h-3.5" />
                             <span>System Architecture</span>
                           </div>
@@ -317,7 +317,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                     <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-4">
                       <button
                         onClick={() => setSelectedProject(project)}
-                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black font-bold text-xs font-mono-tag tracking-wider uppercase hover:bg-neutral-200 transition-all shadow-md"
+                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black font-bold text-xs font-mono-tag tracking-wider uppercase hover:bg-electric-cyan transition-all shadow-md"
                       >
                         <span>Case Study Deep-Dive</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />

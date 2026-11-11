@@ -137,22 +137,22 @@ export const Skills: React.FC<SkillsProps> = ({ skills }) => {
   });
 
   return (
-    <section id="capabilities" className="py-24 sm:py-36 border-b border-white/[0.08] relative bg-architectural-grid">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+    <section id="stack" className="py-28 sm:py-36 border-b border-white/[0.08] relative bg-studio-grid">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 mb-16 border-b border-white/[0.08]">
           <div>
-            <div className="text-xs font-mono-tag text-emerald-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
+            <div className="text-xs font-mono-tag text-electric-cyan uppercase tracking-widest mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-electric-cyan inline-block animate-pulse" />
               <span>(02) / TECHNICAL ARSENAL &amp; CAPABILITIES</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tight text-white font-display">
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-white font-display">
               Stack &amp; Tooling.
             </h2>
           </div>
 
-          <p className="text-sm font-sans text-neutral-300 max-w-md leading-relaxed">
+          <p className="text-sm sm:text-base font-sans text-neutral-400 max-w-md leading-relaxed">
             Full-stack engineering capabilities across distributed server backends, relational databases, cloud containerization, and modern client architectures.
           </p>
         </div>
@@ -192,7 +192,7 @@ export const Skills: React.FC<SkillsProps> = ({ skills }) => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search technologies..."
-              className="w-full bg-white/[0.03] border border-white/10 rounded-full pl-9 pr-4 py-2 text-xs font-mono text-white placeholder-neutral-500 focus:outline-none focus:border-white/40"
+              className="w-full bg-white/[0.03] border border-white/10 rounded-full pl-9 pr-4 py-2 text-xs font-mono text-white placeholder-neutral-500 focus:outline-none focus:border-electric-cyan"
             />
             <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           </div>
@@ -204,25 +204,25 @@ export const Skills: React.FC<SkillsProps> = ({ skills }) => {
           {filteredCapabilities.map((item, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-2xl bg-[#090B0F] border border-white/10 hover:border-white/25 transition-all duration-300 flex flex-col justify-between group shadow-lg hover:shadow-2xl"
+              className="p-7 rounded-2xl bg-[#07080C] border border-white/10 hover:border-electric-cyan/40 transition-all duration-300 flex flex-col justify-between group shadow-lg hover:shadow-2xl"
             >
               <div>
                 {/* Header Tag Line */}
                 <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/[0.06]">
-                  <span className="text-[10px] font-mono-tag px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 uppercase tracking-wider">
+                  <span className="text-[10px] font-mono-tag px-2.5 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 uppercase tracking-wider">
                     {item.tier}
                   </span>
-                  <span className="text-[10px] font-mono-tag text-emerald-400 uppercase">
+                  <span className="text-[10px] font-mono-tag text-electric-cyan uppercase">
                     {item.categoryLabel}
                   </span>
                 </div>
 
                 {/* Tech Title */}
-                <h3 className="text-xl font-bold font-display text-white mb-1.5 group-hover:text-neutral-200 transition-colors">
+                <h3 className="text-xl font-bold font-display text-white mb-1.5 group-hover:text-electric-cyan transition-colors">
                   {item.name}
                 </h3>
 
-                <div className="text-xs font-mono-tag text-cyan-400 uppercase tracking-wide mb-3">
+                <div className="text-xs font-mono-tag text-neutral-400 uppercase tracking-wide mb-3">
                   {item.role}
                 </div>
 
@@ -233,7 +233,7 @@ export const Skills: React.FC<SkillsProps> = ({ skills }) => {
 
               {/* Card Footer Status */}
               <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono-tag text-neutral-400">
-                <span className="flex items-center gap-1.5 text-emerald-400">
+                <span className="flex items-center gap-1.5 text-electric-cyan">
                   <Check className="w-3.5 h-3.5" />
                   <span>Production Verified</span>
                 </span>

@@ -49,30 +49,30 @@ export const Contact: React.FC<ContactProps> = ({ profile }) => {
   };
 
   return (
-    <section id="contact" className="py-24 sm:py-36 relative bg-architectural-grid">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+    <section id="contact" className="py-28 sm:py-36 relative bg-studio-grid">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 mb-16 border-b border-white/[0.08]">
           <div>
-            <div className="text-xs font-mono-tag text-emerald-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
+            <div className="text-xs font-mono-tag text-electric-cyan uppercase tracking-widest mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-electric-cyan inline-block animate-pulse" />
               <span>(04) / DIRECT INQUIRIES &amp; BRIEFING</span>
             </div>
             <h2 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-white font-display">
-              Initiate Contact.
+              Initiate Brief.
             </h2>
           </div>
 
-          <p className="text-sm font-sans text-neutral-300 max-w-md leading-relaxed">
-            Open to full-stack engineering roles, high-throughput backend architecture contracts, and engineering collaborations.
+          <p className="text-sm sm:text-base font-sans text-neutral-400 max-w-md leading-relaxed">
+            Open to full-stack engineering roles, high-throughput backend architecture contracts, and technical collaborations.
           </p>
         </div>
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           
-          {/* Left Column: Big Email, Details & Socials (Spans 6 cols) */}
+          {/* Left Column: Big Email & Specifics (6 cols) */}
           <div className="lg:col-span-6 flex flex-col justify-between">
             <div>
               <span className="text-xs font-mono-tag text-neutral-400 uppercase tracking-widest block mb-4">
@@ -82,16 +82,15 @@ export const Contact: React.FC<ContactProps> = ({ profile }) => {
               {/* Big Interactive Email Clicker */}
               <div
                 onClick={copyEmail}
-                className="group cursor-pointer inline-flex items-center gap-4 mb-8 p-5 sm:p-7 rounded-2xl bg-[#090B0F] border border-white/10 hover:border-white/30 transition-all w-full shadow-xl"
-                data-cursor="COPY"
+                className="group cursor-pointer inline-flex items-center gap-4 mb-8 p-6 sm:p-8 rounded-2xl bg-[#07080C] border border-white/10 hover:border-electric-cyan/40 transition-all w-full shadow-2xl"
               >
                 <div className="overflow-hidden">
-                  <div className="text-lg sm:text-2xl font-bold font-display text-white group-hover:text-neutral-300 transition-colors truncate">
+                  <div className="text-lg sm:text-2xl font-bold font-display text-white group-hover:text-electric-cyan transition-colors truncate">
                     {email}
                   </div>
                   <div className="text-xs font-mono-tag text-neutral-400 mt-1 flex items-center gap-2">
                     {copied ? (
-                      <span className="text-emerald-400 flex items-center gap-1 font-bold">
+                      <span className="text-electric-cyan flex items-center gap-1 font-bold">
                         <Check className="w-3.5 h-3.5" />
                         <span>COPIED TO CLIPBOARD</span>
                       </span>
@@ -100,16 +99,16 @@ export const Contact: React.FC<ContactProps> = ({ profile }) => {
                     )}
                   </div>
                 </div>
-                <div className="ml-auto p-3 rounded-full bg-white/5 group-hover:bg-white text-neutral-400 group-hover:text-black transition-colors shrink-0">
-                  {copied ? <Check className="w-4 h-4 text-emerald-400 group-hover:text-black" /> : <Copy className="w-4 h-4" />}
+                <div className="ml-auto p-3.5 rounded-full bg-white/5 group-hover:bg-electric-cyan text-neutral-400 group-hover:text-black transition-all shrink-0">
+                  {copied ? <Check className="w-4 h-4 text-electric-cyan group-hover:text-black" /> : <Copy className="w-4 h-4" />}
                 </div>
               </div>
 
-              {/* Contact Specifics */}
+              {/* Specifics */}
               <div className="space-y-4 text-xs font-mono-tag text-neutral-300">
                 <div className="flex items-center justify-between py-3 border-b border-white/[0.06]">
                   <span className="text-neutral-500">PHONE / WHATSAPP</span>
-                  <a href={`tel:${profile?.phone || '+919495874414'}`} className="text-white hover:underline">
+                  <a href={`tel:${profile?.phone || '+919495874414'}`} className="text-white hover:text-electric-cyan transition-colors">
                     {profile?.phone || '+91-9495874414'}
                   </a>
                 </div>
@@ -119,12 +118,12 @@ export const Contact: React.FC<ContactProps> = ({ profile }) => {
                 </div>
                 <div className="flex items-center justify-between py-3 border-b border-white/[0.06]">
                   <span className="text-neutral-500">AVAILABILITY</span>
-                  <span className="text-emerald-400 font-bold">AVAILABLE / 2026</span>
+                  <span className="text-electric-cyan font-bold">AVAILABLE / 2026</span>
                 </div>
               </div>
             </div>
 
-            {/* Social Network Links */}
+            {/* Socials & Resume */}
             <div className="pt-8 border-t border-white/[0.08] flex items-center gap-6 text-xs font-mono-tag">
               <a
                 href={profile?.github_url || 'https://github.com/navaneethsankar'}
@@ -150,25 +149,25 @@ export const Contact: React.FC<ContactProps> = ({ profile }) => {
                 download
                 className="text-neutral-400 hover:text-white transition-colors flex items-center gap-1 uppercase tracking-wider ml-auto"
               >
-                <span>DOWNLOAD CV</span>
+                <span>DOWNLOAD CV [PDF]</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>
 
-          {/* Right Column: Clean Editorial Transmission Form (Spans 6 cols) */}
+          {/* Right Column: Dispatch Form (6 cols) */}
           <div className="lg:col-span-6">
-            <div className="p-8 sm:p-10 rounded-3xl bg-[#090B0F] border border-white/10 shadow-2xl">
-              <h3 className="text-xl font-bold font-display uppercase tracking-tight text-white mb-2">
+            <div className="p-8 sm:p-12 rounded-3xl bg-[#07080C] border border-white/10 shadow-2xl">
+              <h3 className="text-2xl font-bold font-display uppercase tracking-tight text-white mb-2">
                 Send Direct Dispatch
               </h3>
               <p className="text-xs font-mono-tag text-neutral-400 mb-8 uppercase tracking-widest flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-electric-cyan" />
                 <span>STORED DIRECTLY IN POSTGRESQL &bull; FAST RESPONSE</span>
               </p>
 
               {success && (
-                <div className="mb-6 p-4 rounded-xl bg-white text-black font-mono-tag text-xs flex items-center justify-between">
+                <div className="mb-6 p-4 rounded-xl bg-electric-cyan text-black font-mono-tag text-xs flex items-center justify-between font-bold">
                   <span>TRANSMISSION RECEIVED. I WILL REPLY PROMPTLY.</span>
                   <Check className="w-4 h-4" />
                 </div>
@@ -191,7 +190,7 @@ export const Contact: React.FC<ContactProps> = ({ profile }) => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Engineering Lead"
-                    className="w-full pb-3 bg-transparent border-b border-white/15 focus:border-white focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-neutral-600"
+                    className="w-full pb-3 bg-transparent border-b border-white/15 focus:border-electric-cyan focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-neutral-600"
                   />
                 </div>
 
@@ -205,7 +204,7 @@ export const Contact: React.FC<ContactProps> = ({ profile }) => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="e.g. lead@enterprise.com"
-                    className="w-full pb-3 bg-transparent border-b border-white/15 focus:border-white focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-neutral-600"
+                    className="w-full pb-3 bg-transparent border-b border-white/15 focus:border-electric-cyan focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-neutral-600"
                   />
                 </div>
 
@@ -218,7 +217,7 @@ export const Contact: React.FC<ContactProps> = ({ profile }) => {
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="Python Full-Stack Engineer / Backend Contract"
-                    className="w-full pb-3 bg-transparent border-b border-white/15 focus:border-white focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-neutral-600"
+                    className="w-full pb-3 bg-transparent border-b border-white/15 focus:border-electric-cyan focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-neutral-600"
                   />
                 </div>
 
@@ -232,15 +231,14 @@ export const Contact: React.FC<ContactProps> = ({ profile }) => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Outline your project scope, team requirements, or engineering inquiry..."
-                    className="w-full pb-3 bg-transparent border-b border-white/15 focus:border-white focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-neutral-600 resize-none"
+                    className="w-full pb-3 bg-transparent border-b border-white/15 focus:border-electric-cyan focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-neutral-600 resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-4 rounded-full bg-white text-black font-bold font-mono-tag text-xs uppercase tracking-widest hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 mt-4 shadow-lg"
-                  data-cursor="TRANSMIT"
+                  className="w-full py-4 rounded-full bg-white text-black font-bold font-mono-tag text-xs uppercase tracking-widest hover:bg-electric-cyan transition-all flex items-center justify-center gap-2 mt-4 shadow-xl"
                 >
                   <span>{submitting ? 'DISPATCHING...' : 'DISPATCH MESSAGE'}</span>
                   <Send className="w-3.5 h-3.5" />
