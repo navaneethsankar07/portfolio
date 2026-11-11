@@ -3,25 +3,50 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    background-color: #08080A;
-    color: #EDEDED;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    overflow-x: hidden;
+  :root {
+    --bg-primary: #050608;
+    --bg-surface: #0A0C10;
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --border-focus: rgba(255, 255, 255, 0.25);
   }
 
-  h1, h2, h3, h4, .font-editorial {
-    font-family: 'Syne', sans-serif;
-    letter-spacing: -0.03em;
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: #050608;
+    color: #F1F1F4;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    letter-spacing: -0.015em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.035em;
+    color: #FFFFFF;
+    font-weight: 700;
   }
 
   .font-mono-tag {
     font-family: 'Space Mono', monospace;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.12em;
   }
 }
 
-/* Film Grain Texture for Luxury Analog Feel */
+/* Architectural Grid Canvas Background */
+.bg-architectural-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Subtle Film Grain Noise */
 .grain-overlay {
   position: fixed;
   top: 0;
@@ -30,37 +55,27 @@
   height: 100vh;
   pointer-events: none;
   z-index: 99;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Minimal Luxury Scrollbar */
+/* High-End Minimalist Dark Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #08080A;
+  background: #050608;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272A;
-  border-radius: 2px;
+  background: #222328;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #52525B;
+  background: #3B3C42;
 }
 
-/* Editorial Horizontal Line Accent */
-.editorial-rule {
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%);
-}
-
-/* Image reveal mask */
-.image-reveal {
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
-}
-
-.image-card:hover .image-reveal {
-  transform: scale(1.03);
-  filter: brightness(1.05);
+/* Smooth Focus Outlines */
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 3px;
 }
