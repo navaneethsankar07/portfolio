@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowUpRight, Github, ExternalLink, Cpu, CheckCircle2, Database, Zap, Layers, Server } from 'lucide-react';
 import { Project } from '../types';
 import { ProjectModal } from './ProjectModal';
+import { GrolanceUIPreview, ChitChatUIPreview, ReStoreUIPreview } from './ProjectMockups';
 
 interface ProjectsProps {
   projects: Project[];
@@ -9,11 +10,6 @@ interface ProjectsProps {
 
 export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [activeTab, setActiveTab] = useState<Record<number, 'telemetry' | 'diagram' | 'specs'>>({
-    1: 'telemetry',
-    2: 'telemetry',
-    3: 'telemetry',
-  });
 
   const displayProjects: Project[] = projects && projects.length > 0 ? projects.slice(0, 3) : [
     {
@@ -27,10 +23,10 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
       architecture_notes: "Built with Django REST Framework and React 18. Implemented stateless JWT auth with RBAC. Utilized PostgreSQL for persistent transaction records with ACID guarantees, combined with Redis and Celery for background processing of notifications and invoice generation.",
       tech_stack: ["Django", "DRF", "React.js", "PostgreSQL", "Redis", "Celery", "JWT", "TailwindCSS"],
       key_features: [
-        "Role-based workflows with dynamic access permissions for Clients and Freelancers",
-        "Stateless JWT authentication and secure refresh token rotation",
-        "Milestone contract lifecycle and integrated payment processing",
-        "Asynchronous email alerts and PDF invoice generation with Celery workers",
+        "Dual role-based workflows (Client/Freelancer) with strict permission boundaries",
+        "ACID transactional escrow locking using PostgreSQL select_for_update()",
+        "Asynchronous PDF invoice generation and transactional email dispatch via Celery",
+        "Stateless JWT authentication with secure httpOnly refresh token rotation",
       ],
       live_url: "https://grolance.demo.app",
       github_url: "https://github.com/navaneethsankar/Grolance-Freelance-Platform",
@@ -50,10 +46,10 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
       architecture_notes: "Utilizes Django Channels ASGI server architecture backed by Redis channel layers for distributed message routing. Features custom WebSocket consumer authentication via JWT query token validation.",
       tech_stack: ["React.js", "Django", "Django Channels", "WebSockets", "Redis", "PostgreSQL"],
       key_features: [
-        "Bidirectional full-duplex WebSocket communication with zero polling latency",
-        "Channel layer broadcasting backed by in-memory Redis instances",
-        "JWT-authenticated WebSocket handshake with token validation",
-        "User presence tracking (Online/Offline) with heartbeat detection",
+        "Bidirectional full-duplex WebSocket communication with sub-5ms delivery",
+        "Distributed message routing backed by in-memory Redis channel layers",
+        "Custom JWT-authenticated WebSocket consumer handshake validation",
+        "Heartbeat detection and real-time user presence tracking (Online/Offline)",
       ],
       live_url: "https://chitchat.demo.app",
       github_url: "https://github.com/navaneethsankar/ChitChat-RealTime-Messaging",
@@ -73,9 +69,10 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
       architecture_notes: "Built on React and Vite for blazing fast bundle delivery. Redux Toolkit provides predictable global state management. Cloudinary handles media transformations.",
       tech_stack: ["React.js", "Vite", "Redux Toolkit", "Firebase", "Cloudinary", "TailwindCSS"],
       key_features: [
+        "Automated Cloudinary media optimization with 96% reduction in transfer payload",
+        "Predictable centralized state management using Redux Toolkit slices",
         "Dynamic multi-step product listing with instant drag-and-drop uploads",
-        "Cloudinary automated image compression and responsive delivery (96% payload reduction)",
-        "Global filter engine powered by Redux Toolkit slices",
+        "Client-side faceted search and filtering across categories and conditions",
       ],
       live_url: "https://restore-marketplace.demo.app",
       github_url: "https://github.com/navaneethsankar/ReStore-Marketplace",
@@ -86,12 +83,14 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
     }
   ];
 
-  const setProjectTab = (id: number, tab: 'telemetry' | 'diagram' | 'specs') => {
-    setActiveTab((prev) => ({ ...prev, [id]: tab }));
+  const renderProjectMockup = (title: string) => {
+    if (title.toLowerCase().includes('grolance')) return <GrolanceUIPreview />;
+    if (title.toLowerCase().includes('chitchat')) return <ChitChatUIPreview />;
+    return <ReStoreUIPreview />;
   };
 
   return (
-    <section id="work" className="py-28 sm:py-36 border-b border-white/[0.08] relative bg-studio-grid">
+    <section id="work" className="py-28 sm:py-40 border-b border-white/[0.08] relative bg-studio-grid">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         
         {/* Section Header */}
@@ -116,12 +115,11 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
           {displayProjects.map((project, idx) => {
             const indexStr = String(idx + 1).padStart(2, '0');
             const isReversed = idx % 2 === 1;
-            const currentTab = activeTab[project.id] || 'telemetry';
 
             return (
               <article key={project.id || idx} className="group">
                 
-                {/* Meta Top Line */}
+                {/* Meta Header Line */}
                 <div className="flex items-center justify-between pb-4 mb-8 border-b border-white/[0.08] text-xs font-mono-tag text-neutral-400 tracking-widest uppercase">
                   <div className="flex items-center gap-3">
                     <span className="text-electric-cyan font-bold">({indexStr})</span>
@@ -133,141 +131,16 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                   </div>
                 </div>
 
-                {/* Grid Split */}
+                {/* Main Grid: UI Showcase (7 cols) + Details (5 cols) */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
                   
                   {/* Visual Interface Showcase (7 cols) */}
-                  <div className={`lg:col-span-7 flex flex-col ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
-                    
-                    {/* View Switcher Pills */}
-                    <div className="flex items-center gap-2 mb-3 self-start">
-                      <button
-                        onClick={() => setProjectTab(project.id, 'telemetry')}
-                        className={`px-3 py-1 rounded-full text-xs font-mono-tag uppercase transition-all ${
-                          currentTab === 'telemetry'
-                            ? 'bg-white text-black font-bold shadow-md'
-                            : 'bg-white/5 border border-white/10 text-neutral-400 hover:text-white'
-                        }`}
-                      >
-                        Telemetry &amp; State
-                      </button>
-                      <button
-                        onClick={() => setProjectTab(project.id, 'diagram')}
-                        className={`px-3 py-1 rounded-full text-xs font-mono-tag uppercase transition-all ${
-                          currentTab === 'diagram'
-                            ? 'bg-white text-black font-bold shadow-md'
-                            : 'bg-white/5 border border-white/10 text-neutral-400 hover:text-white'
-                        }`}
-                      >
-                        System Flow
-                      </button>
-                      <button
-                        onClick={() => setProjectTab(project.id, 'specs')}
-                        className={`px-3 py-1 rounded-full text-xs font-mono-tag uppercase transition-all ${
-                          currentTab === 'specs'
-                            ? 'bg-white text-black font-bold shadow-md'
-                            : 'bg-white/5 border border-white/10 text-neutral-400 hover:text-white'
-                        }`}
-                      >
-                        Architecture Specs
-                      </button>
-                    </div>
-
-                    {/* Frame Container */}
-                    <div
-                      onClick={() => setSelectedProject(project)}
-                      className="cursor-pointer overflow-hidden rounded-2xl bg-[#07080C] border border-white/10 group-hover:border-electric-cyan/40 transition-all duration-500 shadow-2xl p-6 sm:p-8"
-                    >
-                      {currentTab === 'telemetry' && (
-                        <div className="space-y-4 font-mono text-xs select-none">
-                          <div className="flex items-center justify-between pb-3 border-b border-white/10 text-[11px]">
-                            <span className="text-white font-bold">{project.title} // LIVE MONITOR</span>
-                            <span className="text-electric-cyan">HEALTH: 100% OPERATIONAL</span>
-                          </div>
-
-                          <div className="grid grid-cols-2 gap-3">
-                            <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
-                              <div className="text-[10px] text-neutral-500 uppercase">DATABASE TRANSACTION</div>
-                              <div className="text-lg font-bold font-sans text-white mt-1">ACID Committed</div>
-                              <div className="text-[10px] text-electric-cyan">PostgreSQL Relational</div>
-                            </div>
-                            <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
-                              <div className="text-[10px] text-neutral-500 uppercase">ROUND-TRIP LATENCY</div>
-                              <div className="text-lg font-bold font-sans text-white mt-1">&lt;35ms Response</div>
-                              <div className="text-[10px] text-emerald-400">P95 Benchmark</div>
-                            </div>
-                          </div>
-
-                          <div className="p-3 rounded-lg bg-black/60 border border-white/10 text-[11px] text-neutral-300">
-                            <span className="text-neutral-500 uppercase text-[10px] block mb-1">// SYSTEM EXECUTION CONTEXT</span>
-                            {project.title === 'GROLANCE' && (
-                              <span>Stateless JWT with RBAC &bull; Celery worker pool active &bull; Escrow milestone contract verified</span>
-                            )}
-                            {project.title === 'ChitChat' && (
-                              <span>Django Channels ASGI &bull; Redis channel layers &bull; Full-duplex persistent WebSocket stream</span>
-                            )}
-                            {project.title === 'ReStore' && (
-                              <span>Redux Toolkit global state &bull; Cloudinary WebP automated media optimization &bull; Vite build</span>
-                            )}
-                          </div>
-                        </div>
-                      )}
-
-                      {currentTab === 'diagram' && (
-                        <div className="space-y-4 font-mono text-xs select-none">
-                          <div className="flex items-center justify-between pb-3 border-b border-white/10 text-[11px]">
-                            <span className="text-white font-bold">// ARCHITECTURAL PIPELINE</span>
-                            <span className="text-emerald-400">UNIDIRECTIONAL FLOW</span>
-                          </div>
-
-                          <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 text-center my-3">
-                            <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/10">
-                              <div className="text-[9px] text-neutral-500">CLIENT</div>
-                              <div className="text-white font-bold text-xs mt-0.5">React 18</div>
-                              <div className="text-[9px] text-cyan-400">TypeScript</div>
-                            </div>
-                            <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/10">
-                              <div className="text-[9px] text-neutral-500">API GATEWAY</div>
-                              <div className="text-white font-bold text-xs mt-0.5">Django DRF</div>
-                              <div className="text-[9px] text-emerald-400">Stateless JWT</div>
-                            </div>
-                            <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/10">
-                              <div className="text-[9px] text-neutral-500">ASYNC QUEUE</div>
-                              <div className="text-white font-bold text-xs mt-0.5">Celery + Redis</div>
-                              <div className="text-[9px] text-purple-400">Workers</div>
-                            </div>
-                            <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/10">
-                              <div className="text-[9px] text-neutral-500">DATABASE</div>
-                              <div className="text-white font-bold text-xs mt-0.5">PostgreSQL</div>
-                              <div className="text-[9px] text-yellow-400">ACID Schemas</div>
-                            </div>
-                          </div>
-
-                          <div className="text-[10px] text-neutral-400 flex items-center justify-between pt-2 border-t border-white/10">
-                            <span>Zero N+1 Queries via prefetch</span>
-                            <span className="text-electric-cyan">Click to inspect deep-dive &rarr;</span>
-                          </div>
-                        </div>
-                      )}
-
-                      {currentTab === 'specs' && (
-                        <div className="space-y-4 font-mono text-xs select-none">
-                          <div className="flex items-center justify-between pb-3 border-b border-white/10 text-[11px]">
-                            <span className="text-white font-bold">// KEY ENGINEERING SPECS</span>
-                            <span className="text-electric-cyan">STANDARDS ENFORCED</span>
-                          </div>
-
-                          <div className="space-y-2">
-                            {project.key_features?.slice(0, 3).map((feat, i) => (
-                              <div key={i} className="flex items-start gap-2 text-neutral-300 font-sans text-xs">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-electric-cyan shrink-0 mt-0.5" />
-                                <span>{feat}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                  <div className={`lg:col-span-7 cursor-pointer group-hover:scale-[1.01] transition-transform duration-500 ${
+                    isReversed ? 'lg:order-2' : 'lg:order-1'
+                  }`}
+                  onClick={() => setSelectedProject(project)}
+                  >
+                    {renderProjectMockup(project.title)}
                   </div>
 
                   {/* Narrative Breakdown (5 cols) */}
@@ -275,6 +148,10 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                     isReversed ? 'lg:order-1' : 'lg:order-2'
                   }`}>
                     <div>
+                      <div className="text-xs font-mono-tag text-electric-cyan uppercase tracking-widest mb-2">
+                        {project.category_display || project.category}
+                      </div>
+
                       <h3 className="text-3xl sm:text-5xl font-extrabold uppercase font-display text-white mb-3 tracking-tight group-hover:text-electric-cyan transition-colors">
                         {project.title}
                       </h3>
@@ -287,20 +164,17 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                         {project.description}
                       </p>
 
-                      {/* Architecture Callout */}
-                      {project.architecture_notes && (
-                        <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10 mb-6">
-                          <div className="flex items-center gap-2 text-xs font-mono-tag text-electric-cyan uppercase tracking-widest mb-1.5">
-                            <Cpu className="w-3.5 h-3.5" />
-                            <span>System Architecture</span>
+                      {/* Key Architectural Solutions */}
+                      <div className="space-y-2.5 mb-8">
+                        {project.key_features?.slice(0, 3).map((feat, i) => (
+                          <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-300 font-sans">
+                            <CheckCircle2 className="w-4 h-4 text-electric-cyan shrink-0 mt-0.5" />
+                            <span>{feat}</span>
                           </div>
-                          <p className="text-xs text-neutral-300 font-sans leading-relaxed">
-                            {project.architecture_notes}
-                          </p>
-                        </div>
-                      )}
+                        ))}
+                      </div>
 
-                      {/* Tech Pills */}
+                      {/* Tech Stack Pills */}
                       <div className="flex flex-wrap gap-1.5 mb-8">
                         {project.tech_stack?.map((tech) => (
                           <span
@@ -328,7 +202,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                           href={project.github_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="p-2.5 rounded-full border border-white/10 hover:border-white text-neutral-300 hover:text-white transition-all"
+                          className="p-2.5 rounded-full border border-white/10 hover:border-white text-neutral-300 hover:text-white transition-all bg-white/5"
                           title="GitHub Repository"
                         >
                           <Github className="w-4 h-4" />
@@ -340,7 +214,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                           href={project.live_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="p-2.5 rounded-full border border-white/10 hover:border-white text-neutral-300 hover:text-white transition-all"
+                          className="p-2.5 rounded-full border border-white/10 hover:border-white text-neutral-300 hover:text-white transition-all bg-white/5"
                           title="Live Demo"
                         >
                           <ExternalLink className="w-4 h-4" />

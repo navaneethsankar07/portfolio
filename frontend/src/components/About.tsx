@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Quote, Star, CheckCircle2, ArrowRight, ShieldCheck, UserCheck, Sparkles } from 'lucide-react';
+import { Quote, Star, CheckCircle2, ArrowRight, ShieldCheck, UserCheck, Sparkles, Terminal, Code2 } from 'lucide-react';
 import { Profile, PublicStats } from '../types';
 
 interface AboutProps {
@@ -49,7 +49,7 @@ export const About: React.FC<AboutProps> = ({ profile, stats }) => {
       number: "01",
       title: "Relational Rigor & Zero N+1 Queries",
       summary:
-        "No sloppy schema design. Every database relationship in PostgreSQL is modeled with ACID integrity, proper indexes, and selective query prefetching (select_related / prefetch_related) to eliminate database bottlenecks.",
+        "No sloppy schema design. Every database relationship in PostgreSQL is modeled with ACID integrity, proper foreign-key cascades, and selective query prefetching (select_related / prefetch_related) to eliminate database bottlenecks.",
       tag: "DATABASE ARCHITECTURE",
     },
     {
@@ -69,7 +69,7 @@ export const About: React.FC<AboutProps> = ({ profile, stats }) => {
   ];
 
   return (
-    <section id="philosophy" className="py-28 sm:py-36 border-b border-white/[0.08] relative bg-studio-grid">
+    <section id="philosophy" className="py-28 sm:py-40 border-b border-white/[0.08] relative bg-studio-grid">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         
         {/* Section Header */}
@@ -89,53 +89,46 @@ export const About: React.FC<AboutProps> = ({ profile, stats }) => {
           </p>
         </div>
 
-        {/* 1. Years of Experience & Metrics Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pb-16 mb-20 border-b border-white/[0.08]">
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#07080C] border border-white/10 hover:border-white/20 transition-all">
-            <div className="text-4xl sm:text-6xl font-bold text-white font-display mb-2">
-              1+
-            </div>
-            <div className="text-xs font-mono-tag text-neutral-400 uppercase tracking-wider mb-2">
-              Years Dedicated Engineering
-            </div>
-            <div className="text-[11px] font-mono-tag text-electric-cyan">
-              Brototype Intensive Full-Stack
-            </div>
+        {/* Narrative & Experience Overview */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 pb-16 mb-20 border-b border-white/[0.08] items-center">
+          <div className="lg:col-span-7">
+            <h3 className="text-2xl sm:text-4xl font-bold font-display text-white mb-6 leading-snug">
+              Engineering systems from first principles — focused on performance, data integrity, and reliability.
+            </h3>
+            <p className="text-base text-neutral-300 font-sans leading-relaxed mb-6">
+              Trained through the rigorous, project-intensive full-stack program at <strong className="text-white">Brototype</strong>, I have dedicated over a year to building complex production applications from scratch. Rather than relying on boilerplate frameworks, I focus on understanding every layer of the web stack: from PostgreSQL ACID isolation levels and database index tuning, to asynchronous Celery worker pools, down to sub-millisecond WebSocket channels.
+            </p>
+            <p className="text-base text-neutral-400 font-sans leading-relaxed">
+              When working on user interfaces, I believe frontend development is state architecture. With React 18, TypeScript, and Redux Toolkit, I craft interfaces that feel immediate, responsive, and deterministic.
+            </p>
           </div>
 
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#07080C] border border-white/10 hover:border-white/20 transition-all">
-            <div className="text-4xl sm:text-6xl font-bold text-white font-display mb-2">
-              {stats?.projects_count || 3}
+          <div className="lg:col-span-5 p-8 rounded-3xl bg-[#07080C] border border-white/10 space-y-4">
+            <div className="text-xs font-mono-tag text-electric-cyan uppercase tracking-widest mb-2 flex items-center gap-2">
+              <Terminal className="w-4 h-4" />
+              <span>CORE ARCHITECTURAL PROFILE</span>
             </div>
-            <div className="text-xs font-mono-tag text-neutral-400 uppercase tracking-wider mb-2">
-              Flagship Full-Stack Platforms
-            </div>
-            <div className="text-[11px] font-mono-tag text-electric-blue">
-              Django REST + React TS
-            </div>
-          </div>
-
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#07080C] border border-white/10 hover:border-white/20 transition-all">
-            <div className="text-4xl sm:text-6xl font-bold text-white font-display mb-2">
-              25+
-            </div>
-            <div className="text-xs font-mono-tag text-neutral-400 uppercase tracking-wider mb-2">
-              Production Stack Technologies
-            </div>
-            <div className="text-[11px] font-mono-tag text-purple-400">
-              Celery, Redis, Docker, WebSockets
-            </div>
-          </div>
-
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#07080C] border border-white/10 hover:border-white/20 transition-all">
-            <div className="text-4xl sm:text-6xl font-bold text-white font-display mb-2">
-              &lt;40ms
-            </div>
-            <div className="text-xs font-mono-tag text-neutral-400 uppercase tracking-wider mb-2">
-              Average API Response P95
-            </div>
-            <div className="text-[11px] font-mono-tag text-emerald-400">
-              Zero N+1 Query Prefetching
+            <div className="space-y-3 text-xs font-mono text-neutral-300">
+              <div className="flex justify-between py-2 border-b border-white/[0.06]">
+                <span className="text-neutral-500">PRIMARY LANGUAGE:</span>
+                <span className="text-white font-bold">Python 3.11+ / TypeScript</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-white/[0.06]">
+                <span className="text-neutral-500">BACKEND RUNTIME:</span>
+                <span className="text-white font-bold">Django REST / ASGI Daphne</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-white/[0.06]">
+                <span className="text-neutral-500">PRIMARY DATABASE:</span>
+                <span className="text-white font-bold">PostgreSQL Relational (ACID)</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-white/[0.06]">
+                <span className="text-neutral-500">TASK BROKER:</span>
+                <span className="text-white font-bold">Celery Workers + Redis</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-neutral-500">REAL-TIME LAYER:</span>
+                <span className="text-electric-cyan font-bold">Django Channels (WebSockets)</span>
+              </div>
             </div>
           </div>
         </div>
