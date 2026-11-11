@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { ArrowUpRight, Github, ExternalLink, Cpu, CheckCircle2 } from 'lucide-react';
 import { Project } from '../types';
 import { ProjectModal } from './ProjectModal';
+import { GrolanceMockup, ChitChatMockup, ReStoreMockup } from './ProjectMockups';
 
 interface ProjectsProps {
   projects: Project[];
@@ -11,8 +11,82 @@ interface ProjectsProps {
 export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  // Take the top 3 flagship projects
-  const displayProjects = projects.slice(0, 3);
+  const displayProjects = projects && projects.length > 0 ? projects.slice(0, 3) : [
+    {
+      id: 1,
+      title: "GROLANCE",
+      slug: "grolance-freelancing-platform",
+      subtitle: "Full-Stack Freelancing Platform with Role-Based Workflows",
+      category: "fullstack" as const,
+      category_display: "Full-Stack Platform",
+      description: "A comprehensive full-stack freelancing platform connecting clients and freelance professionals through role-based workflows, contract milestones, and escrow payments.",
+      architecture_notes: "Built with Django REST Framework and React. Implemented stateless JWT auth with RBAC. Utilized PostgreSQL for persistent transaction records, combined with Redis and Celery for background processing of notifications and invoice generation.",
+      tech_stack: ["Django", "DRF", "React.js", "PostgreSQL", "Redis", "Celery", "JWT", "TailwindCSS"],
+      key_features: [
+        "Role-based workflows with dynamic access permissions for Clients and Freelancers",
+        "Stateless JWT authentication and secure refresh token rotation",
+        "Milestone contract lifecycle and integrated payment processing",
+        "Asynchronous email alerts and PDF invoice generation with Celery workers",
+      ],
+      live_url: "https://grolance.demo.app",
+      github_url: "https://github.com/navaneethsankar/Grolance-Freelance-Platform",
+      image_url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80",
+      featured: true,
+      order: 1,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: 2,
+      title: "ChitChat",
+      slug: "chitchat-realtime-messaging",
+      subtitle: "Real-Time WebSocket Messaging Platform",
+      category: "realtime" as const,
+      category_display: "Real-Time & WebSockets",
+      description: "A low-latency real-time communication platform engineered with Django Channels and WebSockets for instant message delivery and presence tracking.",
+      architecture_notes: "Utilizes Django Channels ASGI server architecture backed by Redis channel layers for distributed message routing. Features custom WebSocket consumer authentication via JWT query token validation.",
+      tech_stack: ["React.js", "Django", "Django Channels", "WebSockets", "Redis", "PostgreSQL"],
+      key_features: [
+        "Bidirectional full-duplex WebSocket communication with zero polling latency",
+        "Channel layer broadcasting backed by in-memory Redis instances",
+        "JWT-authenticated WebSocket handshake with token validation",
+        "User presence tracking (Online/Offline) with heartbeat detection",
+      ],
+      live_url: "https://chitchat.demo.app",
+      github_url: "https://github.com/navaneethsankar/ChitChat-RealTime-Messaging",
+      image_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&auto=format&fit=crop&q=80",
+      featured: true,
+      order: 2,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: 3,
+      title: "ReStore",
+      slug: "restore-c2c-marketplace",
+      subtitle: "C2C Marketplace Platform for Pre-Owned Goods",
+      category: "marketplace" as const,
+      category_display: "Marketplaces",
+      description: "A customer-to-customer marketplace engineered for discovering, buying, and selling pre-owned goods with cloud media optimization and centralized state management.",
+      architecture_notes: "Built on React and Vite for blazing fast bundle delivery. Redux Toolkit provides predictable global state management. Cloudinary handles media transformations.",
+      tech_stack: ["React.js", "Vite", "Redux Toolkit", "Firebase", "Cloudinary", "TailwindCSS"],
+      key_features: [
+        "Dynamic multi-step product listing with instant drag-and-drop uploads",
+        "Cloudinary automated image compression and responsive delivery",
+        "Global filter engine powered by Redux Toolkit",
+      ],
+      live_url: "https://restore-marketplace.demo.app",
+      github_url: "https://github.com/navaneethsankar/ReStore-Marketplace",
+      image_url: "https://images.unsplash.com/photo-1556742049-0a67c5574f73?w=1200&auto=format&fit=crop&q=80",
+      featured: true,
+      order: 3,
+      created_at: new Date().toISOString(),
+    }
+  ];
+
+  const renderMockup = (title: string) => {
+    if (title.toLowerCase().includes('grolance')) return <GrolanceMockup />;
+    if (title.toLowerCase().includes('chitchat')) return <ChitChatMockup />;
+    return <ReStoreMockup />;
+  };
 
   return (
     <section id="work" className="py-24 sm:py-32 border-b border-white/[0.08] relative">
@@ -22,77 +96,57 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 mb-16 border-b border-white/[0.08]">
           <div>
             <div className="text-xs font-mono-tag text-neutral-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-              <span>(01)</span>
-              <span>/</span>
-              <span>SELECTED ARCHITECTURAL WORKS</span>
+              <span className="w-2 h-2 rounded-full bg-white inline-block" />
+              <span>(01) / SELECTED ARCHITECTURAL WORKS</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white font-display">
-              Curated Projects.
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white font-display">
+              Featured Projects.
             </h2>
           </div>
 
           <p className="text-sm font-sans text-neutral-400 max-w-md leading-relaxed">
-            Full-stack production platforms engineered with robust database schemas, distributed asynchronous workflows, and low-latency real-time protocols.
+            Full-stack production platforms engineered with robust database schemas, distributed background task queues, and low-latency real-time synchronization.
           </p>
         </div>
 
         {/* Project Case Studies List */}
-        <div className="space-y-24 sm:space-y-36">
+        <div className="space-y-24 sm:space-y-32">
           {displayProjects.map((project, idx) => {
             const indexStr = String(idx + 1).padStart(2, '0');
             const isReversed = idx % 2 === 1;
 
             return (
-              <motion.article
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.8 }}
-                className="group"
+              <article
+                key={project.id || idx}
+                className="group opacity-100 transition-all duration-500"
               >
-                {/* Meta Top Line */}
+                {/* Meta Header Line */}
                 <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/[0.08] text-xs font-mono-tag text-neutral-400 tracking-widest uppercase">
                   <div className="flex items-center gap-3">
                     <span className="text-white font-bold">({indexStr})</span>
                     <span>/</span>
-                    <span className="text-neutral-300">{project.title}</span>
+                    <span className="text-white font-semibold">{project.title}</span>
                   </div>
-                  <div>
+                  <div className="text-neutral-400">
                     <span>{project.category_display || project.category}</span>
                   </div>
                 </div>
 
                 {/* Case Study Grid */}
-                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center ${
+                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${
                   isReversed ? 'lg:flex-row-reverse' : ''
                 }`}>
                   
-                  {/* Visual Image Showcase (Spans 7 cols) */}
+                  {/* Visual Interface Showcase (Spans 7 cols) */}
                   <div
-                    className={`lg:col-span-7 cursor-pointer image-card overflow-hidden rounded-2xl bg-neutral-900 border border-white/10 group-hover:border-white/30 transition-all duration-700 ${
+                    className={`lg:col-span-7 cursor-pointer overflow-hidden rounded-2xl bg-[#0D0E14] border border-white/10 group-hover:border-white/30 transition-all duration-500 shadow-2xl ${
                       isReversed ? 'lg:order-2' : 'lg:order-1'
                     }`}
                     onClick={() => setSelectedProject(project)}
-                    data-cursor="VIEW CASE"
+                    data-cursor="CASE STUDY"
                   >
                     <div className="relative aspect-[16/10] w-full overflow-hidden">
-                      <img
-                        src={
-                          project.image_url ||
-                          'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&auto=format&fit=crop&q=80'
-                        }
-                        alt={project.title}
-                        className="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 image-reveal duration-700 opacity-80 group-hover:opacity-100"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-
-                      {/* Corner Badge */}
-                      <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                        <span className="px-3 py-1 rounded bg-black/80 backdrop-blur-md text-[11px] font-mono-tag text-white uppercase border border-white/15">
-                          EXPLORE CASE STUDY &bull;
-                        </span>
-                      </div>
+                      {renderMockup(project.title)}
                     </div>
                   </div>
 
@@ -101,10 +155,10 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                     isReversed ? 'lg:order-1' : 'lg:order-2'
                   }`}>
                     <div>
-                      <h3 className="text-3xl sm:text-4xl font-extrabold uppercase font-display text-white mb-3 tracking-tight group-hover:text-neutral-200 transition-colors">
+                      <h3 className="text-3xl sm:text-4xl font-bold uppercase font-display text-white mb-2 tracking-tight group-hover:text-neutral-200 transition-colors">
                         {project.title}
                       </h3>
-                      <p className="text-xs sm:text-sm font-mono-tag text-neutral-400 mb-6 uppercase tracking-wider">
+                      <p className="text-xs font-mono-tag text-neutral-400 mb-5 uppercase tracking-wide">
                         {project.subtitle}
                       </p>
 
@@ -114,23 +168,23 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
 
                       {/* Architecture Callout */}
                       {project.architecture_notes && (
-                        <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10 mb-6">
+                        <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 mb-6">
                           <div className="flex items-center gap-2 text-xs font-mono-tag text-white mb-2 uppercase tracking-wide">
-                            <Cpu className="w-3.5 h-3.5" />
+                            <Cpu className="w-3.5 h-3.5 text-white" />
                             <span>System Architecture</span>
                           </div>
-                          <p className="text-xs text-neutral-400 font-sans leading-relaxed line-clamp-3">
+                          <p className="text-xs text-neutral-300 font-sans leading-relaxed line-clamp-3">
                             {project.architecture_notes}
                           </p>
                         </div>
                       )}
 
                       {/* Tech Stack Pills */}
-                      <div className="flex flex-wrap gap-2 mb-8">
-                        {project.tech_stack?.map((tech) => (
+                      <div className="flex flex-wrap gap-1.5 mb-8">
+                        {project.tech_stack?.slice(0, 6).map((tech) => (
                           <span
                             key={tech}
-                            className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 text-[11px] font-mono-tag text-neutral-300 uppercase tracking-wider"
+                            className="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 text-[11px] font-mono-tag text-neutral-200 uppercase tracking-wider"
                           >
                             {tech}
                           </span>
@@ -142,7 +196,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                     <div className="pt-6 border-t border-white/[0.08] flex items-center gap-4">
                       <button
                         onClick={() => setSelectedProject(project)}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black font-semibold text-xs font-mono-tag tracking-wider uppercase hover:bg-neutral-200 transition-all"
+                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black font-semibold text-xs font-mono-tag tracking-wider uppercase hover:bg-neutral-200 transition-all shadow-md"
                         data-cursor="INSPECT"
                       >
                         <span>CASE STUDY</span>
@@ -154,7 +208,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                           href={project.github_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 p-2.5 rounded-full border border-white/10 text-neutral-300 hover:text-white hover:bg-white/5 transition-all text-xs font-mono-tag"
+                          className="inline-flex items-center gap-1.5 p-2.5 rounded-full border border-white/15 text-neutral-300 hover:text-white hover:bg-white/10 transition-all text-xs font-mono-tag"
                           title="GitHub Repository"
                         >
                           <Github className="w-4 h-4" />
@@ -166,7 +220,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                           href={project.live_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 p-2.5 rounded-full border border-white/10 text-neutral-300 hover:text-white hover:bg-white/5 transition-all text-xs font-mono-tag"
+                          className="inline-flex items-center gap-1.5 p-2.5 rounded-full border border-white/15 text-neutral-300 hover:text-white hover:bg-white/10 transition-all text-xs font-mono-tag"
                           title="Live Application"
                         >
                           <ExternalLink className="w-4 h-4" />
@@ -177,7 +231,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                   </div>
 
                 </div>
-              </motion.article>
+              </article>
             );
           })}
         </div>

@@ -82,3 +82,4 @@ export const CustomCursor: React.FC = () => {
     </motion.div>
   );
 };
+

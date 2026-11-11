@@ -3,6 +3,7 @@ import { CustomCursor } from './components/CustomCursor';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Projects } from './components/Projects';
+import { Skills } from './components/Skills';
 import { About } from './components/About';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
@@ -19,7 +20,6 @@ export const App: React.FC = () => {
   const [experiences, setExperiences] = useState<ExperienceType[]>([]);
   const [articles, setArticles] = useState<Article[]>([]);
   const [stats, setStats] = useState<PublicStats | null>(null);
-  const [loading, setLoading] = useState(true);
 
   // Modals & Panels
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -45,8 +45,6 @@ export const App: React.FC = () => {
       if (statsData.status === 'fulfilled') setStats(statsData.value);
     } catch (e) {
       console.error('Data fetch error:', e);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -67,8 +65,6 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const flagshipProject = projects.length > 0 ? projects[0] : null;
-
   return (
     <div className="relative min-h-screen bg-[#08080A] text-[#EDEDED] font-sans selection:bg-white selection:text-black">
       
@@ -88,12 +84,15 @@ export const App: React.FC = () => {
         {/* Editorial Hero with Peak Work Above The Fold */}
         <Hero
           profile={profile}
-          flagshipProject={flagshipProject}
+          projects={projects}
           onOpenProject={(proj) => setSelectedProject(proj)}
         />
 
         {/* Selected Works (Curated Case Studies) */}
         <Projects projects={projects} />
+
+        {/* Technical Arsenal & Capabilities Matrix */}
+        <Skills skills={skills} />
 
         {/* About, Philosophy & Verified Teammate Reviews */}
         <About
